@@ -27,6 +27,8 @@ public class JPaintController implements IJPaintController {
     
         
         
+        
+        // Testing
         //uiModule.addEvent(EventName.UNDO, () -> new UndoCommand().run());
         // Using Command Pattern for Undo
         

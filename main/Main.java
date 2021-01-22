@@ -25,7 +25,7 @@ public class Main {
 		
 		
 		
-		
+		// Testing Git repo
 		//paintCanvas.addMouseListener(new );
 		
 		ShapeType shapeType = appState.getActiveShapeType();
