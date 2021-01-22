@@ -23,10 +23,13 @@ public class Main {
 		controller.setup();
 
 		
+<<<<<<< HEAD
 		
 		
 		
 		// So confused
+=======
+>>>>>>> main
 		// Modifying the code using website
 		// Modifying the code using eclipse
 		// Modifying the code with GitKraken
