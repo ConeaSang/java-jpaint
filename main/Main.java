@@ -25,6 +25,8 @@ public class Main {
 		
 		
 		
+
+		// Testing GitKraken
 		// Testing Git repo
 		//paintCanvas.addMouseListener(new );
 		
