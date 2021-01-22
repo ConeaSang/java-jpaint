@@ -24,8 +24,8 @@ public class Main {
 
 		
 		
-		
-
+		// Modifying the code using eclipse
+		// Modifying the code with GitKraken
 		// Testing GitKraken
 		// Testing Git repo
 		//paintCanvas.addMouseListener(new );
