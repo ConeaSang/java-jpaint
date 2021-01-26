@@ -27,13 +27,7 @@ public class Main {
 		
 		
 		
-		// So confused
-		// Now using IntelliJ
-		// Modifying the code using website
-		// Modifying the code using eclipse
-		// Modifying the code with GitKraken
-		// Testing GitKraken
-		// Testing Git repo
+
 		//paintCanvas.addMouseListener(new );
 		
 		ShapeType shapeType = appState.getActiveShapeType();
@@ -50,6 +44,7 @@ public class Main {
 
 		try {
 			Thread.sleep(500);
+			//Thread.sleep(1500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -57,15 +52,18 @@ public class Main {
 		// Filled in rectangle
 		Graphics2D graphics2d = paintCanvas.getGraphics2D();
 		graphics2d.setColor(Color.GREEN);
-		graphics2d.fillRect(12, 13, 200, 400);
+		//graphics2d.fillRect(12, 13, 200, 400);
+		graphics2d.fillRect(42, 43, 200, 600);
 
 		// Outlined rectangle
-		graphics2d.setStroke(new BasicStroke(5));
+		//graphics2d.setStroke(new BasicStroke(5));
+		graphics2d.setStroke(new BasicStroke(8));
 		graphics2d.setColor(Color.BLUE);
 		graphics2d.drawRect(12, 13, 200, 400);
 
 		// Selected Shape
-		Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[] { 9 }, 0);
+		//Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[] { 9 }, 0);
+		Stroke stroke = new BasicStroke(6, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 4, new float[] { 15 }, 0);
 		graphics2d.setStroke(stroke);
 		graphics2d.setColor(Color.BLACK);
 		graphics2d.drawRect(7, 8, 210, 410);
