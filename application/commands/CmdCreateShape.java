@@ -1,19 +1,19 @@
-package controller.commands;
+package application.commands;
 
 import java.awt.*;
-import java.io.IOException;
-import view.interfaces.PaintCanvasBase;
-import controller.Point;
 
-public class DrawCommand implements ICommand, IUndoable {
+import application.Point;
+import view.interfaces.PaintCanvasBase;
+
+public class CreateShapeCmd implements ICommand, IUndoable {
     // Data
     private PaintCanvasBase paintCanvas;
-    private Point pointTopLeft;
+    private application.Point pointTopLeft;
     private int width;
     private int height;
 
     // Constructors
-    public DrawCommand(PaintCanvasBase _paintCanvas, Point _pointPressed, Point _pointReleased) {
+    public CreateShapeCmd(PaintCanvasBase _paintCanvas, application.Point _pointPressed, application.Point _pointReleased) {
         this.paintCanvas = _paintCanvas;
 
         this.pointTopLeft = new Point(0,0);
@@ -37,10 +37,7 @@ public class DrawCommand implements ICommand, IUndoable {
     // Methods
     @Override
     public void execute() {
-        Graphics2D graphics2D = this.paintCanvas.getGraphics2D();
-
-        graphics2D.setColor(Color.GREEN);
-        graphics2D.fillRect(this.pointTopLeft.getX(), this.pointTopLeft.getY(), this.width, this.height);
+        // Add to the ShapeList here
     }
 
     @Override

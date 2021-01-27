@@ -1,4 +1,4 @@
-package controller;
+package application;
 
 public class Point {
     // Data
