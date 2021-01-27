@@ -1,11 +1,9 @@
 package application.commands;
 
-import java.awt.*;
-
 import application.Point;
 import view.interfaces.PaintCanvasBase;
 
-public class CreateShapeCmd implements ICommand, IUndoable {
+public class CmdCreateShape implements ICmd, IUndoable {
     // Data
     private PaintCanvasBase paintCanvas;
     private application.Point pointTopLeft;
@@ -13,7 +11,7 @@ public class CreateShapeCmd implements ICommand, IUndoable {
     private int height;
 
     // Constructors
-    public CreateShapeCmd(PaintCanvasBase _paintCanvas, application.Point _pointPressed, application.Point _pointReleased) {
+    public CmdCreateShape(PaintCanvasBase _paintCanvas, application.Point _pointPressed, application.Point _pointReleased) {
         this.paintCanvas = _paintCanvas;
 
         this.pointTopLeft = new Point(0,0);
