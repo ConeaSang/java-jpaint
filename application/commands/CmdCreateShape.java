@@ -8,10 +8,9 @@ import application.shapes.ShapeRepository;
 import model.ShapeType;
 import view.interfaces.PaintCanvasBase;
 
-public class CmdCreateShape implements ICommand, IUndoable {
+public class CmdCreateShape implements ICommand {
     // Data
     private ShapeInfo shapeInfo;
-    private IShape shape;
 
     // Constructors
     public CmdCreateShape(PaintCanvasBase _paintCanvas, application.Point _pointPressed, application.Point _pointReleased) {
@@ -38,32 +37,23 @@ public class CmdCreateShape implements ICommand, IUndoable {
 
         this.shapeInfo.setWidth(Math.abs(_pointReleased.getX() - _pointPressed.getX()));
         this.shapeInfo.setHeight(Math.abs(_pointReleased.getY() - _pointPressed.getY()));
-
-        // Call the ShapeFactory
-        if (this.shapeInfo.getShapeType() == ShapeType.ELLIPSE) {
-            this.shape = ShapeFactory.getShapeEllipse(this.shapeInfo);
-        } else if (this.shapeInfo.getShapeType() == ShapeType.RECTANGLE) {
-            this.shape = ShapeFactory.getShapeRectangle(this.shapeInfo);
-        } else {
-            this.shape = ShapeFactory.getShapeTriangle(this.shapeInfo);
-        }
     }
 
     // Methods
     @Override
     public void execute() {
-        ShapeRepository.add(this.shape);
+        IShape shape;
 
-        CommandHistory.add(this);
-    }
+        // Call the ShapeFactory
+        if (this.shapeInfo.getShapeType() == ShapeType.ELLIPSE) {
+            shape = ShapeFactory.getShapeEllipse(this.shapeInfo);
+        } else if (this.shapeInfo.getShapeType() == ShapeType.RECTANGLE) {
+            shape = ShapeFactory.getShapeRectangle(this.shapeInfo);
+        } else {
+            shape = ShapeFactory.getShapeTriangle(this.shapeInfo);
+        }
 
-    @Override
-    public void undo() {
-
-    }
-
-    @Override
-    public void redo() {
-
+        ICommand cmd = new CmdAddToRepo(shape);
+        cmd.execute();
     }
 }

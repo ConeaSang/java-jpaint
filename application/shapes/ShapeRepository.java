@@ -17,16 +17,17 @@ public class ShapeRepository {
     public static void add(IShape _shape)
     {
         shapeList.add(_shape);
-        ShapeRepository.deleteAll();
+        //ShapeRepository.deleteAll();
         ShapeRepository.drawAll();
     }
 
     public static void remove(IShape _shape) {
+        ShapeRepository.deleteAll();
+
         if (shapeList.contains(_shape)) {
             shapeList.remove(ShapeRepository.find(_shape));
         }
-        
-        ShapeRepository.deleteAll();
+
         ShapeRepository.drawAll();
     }
 
