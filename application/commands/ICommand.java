@@ -1,5 +1,5 @@
 package application.commands;
 
-public interface ICmd {
+public interface ICommand {
     void execute();
 }

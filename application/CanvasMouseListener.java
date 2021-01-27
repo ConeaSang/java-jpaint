@@ -4,7 +4,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
 import application.commands.CmdCreateShape;
-import application.commands.ICmd;
+import application.commands.ICommand;
 import view.interfaces.PaintCanvasBase;
 
 public class CanvasMouseListener implements MouseListener{
@@ -39,7 +39,7 @@ public class CanvasMouseListener implements MouseListener{
         this.pointReleased.setY(e.getY());
         System.out.println("Released: " + this.pointReleased.getX() + ", " + this.pointReleased.getY());
 
-        ICmd cmd = new CmdCreateShape(this.paintCanvas, this.pointPressed, this.pointReleased);
+        ICommand cmd = new CmdCreateShape(this.paintCanvas, this.pointPressed, this.pointReleased);
         cmd.execute();
 
         this.pointPressed.setX(0);

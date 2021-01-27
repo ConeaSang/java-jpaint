@@ -3,7 +3,7 @@ package application.commands;
 import application.Point;
 import view.interfaces.PaintCanvasBase;
 
-public class CmdCreateShape implements ICmd, IUndoable {
+public class CmdCreateShape implements ICommand, IUndoable {
     // Data
     private PaintCanvasBase paintCanvas;
     private application.Point pointTopLeft;

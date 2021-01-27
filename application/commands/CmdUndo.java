@@ -1,6 +1,6 @@
 package application.commands;
 
-public class CmdUndo implements ICmd {
+public class CmdUndo implements ICommand {
     @Override
     public void execute() {
 

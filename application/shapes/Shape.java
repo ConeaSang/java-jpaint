@@ -6,9 +6,9 @@ import model.ShapeColor;
 import model.ShapeShadingType;
 import view.interfaces.PaintCanvasBase;
 
-abstract class Shape implements IShape {
+public abstract class Shape implements IShape {
     // Data
-    protected PaintCanvasBase paintCanvas;
+    //protected PaintCanvasBase paintCanvas;
     protected Point pointTopLeft;
     protected int width;
     protected int height;
