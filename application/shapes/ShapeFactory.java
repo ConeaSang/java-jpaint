@@ -7,15 +7,15 @@ public class ShapeFactory {
     }
 
     // Methods
-    public static IShape getShapeEllipse() {
-        return new ShapeEllipse();
+    public static IShape getShapeEllipse(ShapeInfo _shapeInfo) {
+        return new ShapeEllipse(_shapeInfo);
     }
 
-    public static IShape getShapeRectangle() {
-        return new ShapeRectangle();
+    public static IShape getShapeRectangle(ShapeInfo _shapeInfo) {
+        return new ShapeRectangle(_shapeInfo);
     }
 
-    public static IShape getShapeTriangle() {
-        return new ShapeTriangle();
+    public static IShape getShapeTriangle(ShapeInfo _shapeInfo) {
+        return new ShapeTriangle(_shapeInfo);
     }
 }
