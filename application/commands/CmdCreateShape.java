@@ -42,6 +42,8 @@ public class CmdCreateShape implements ICommand {
     // Methods
     @Override
     public void execute() {
+        System.out.println("---> execute() CmdCreateShape");
+
         IShape shape;
 
         // Call the ShapeFactory

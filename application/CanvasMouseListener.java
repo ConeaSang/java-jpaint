@@ -23,21 +23,24 @@ public class CanvasMouseListener implements MouseListener{
     // Methods
     @Override
     public void mouseClicked(MouseEvent e) {
+        System.out.println("mouseClicked: " + e.getX() + ", " + e.getY());
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+        System.out.println("mousePressed: " + e.getX() + ", " + e.getY());
+
         this.pointPressed.setX(e.getX());
         this.pointPressed.setY(e.getY());
-        System.out.println("Pressed: " + this.pointPressed.getX() + ", " + this.pointPressed.getY());
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        System.out.println("mouseReleased: " + e.getX() + ", " + e.getY());
+
         this.pointReleased.setX(e.getX());
         this.pointReleased.setY(e.getY());
-        System.out.println("Released: " + this.pointReleased.getX() + ", " + this.pointReleased.getY());
 
         ICommand cmd = new CmdCreateShape(this.paintCanvas, this.pointPressed, this.pointReleased);
         cmd.execute();

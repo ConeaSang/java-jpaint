@@ -15,6 +15,8 @@ public class CmdAddToRepo implements ICommand, IUndoable {
     // Methods
     @Override
     public void execute() {
+        System.out.println("---> execute() CmdAddToRepo");
+
         ShapeRepository.add(this.shape);
         CommandHistory.add(this);
     }

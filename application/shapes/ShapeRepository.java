@@ -25,7 +25,8 @@ public class ShapeRepository {
         ShapeRepository.deleteAll();
 
         if (shapeList.contains(_shape)) {
-            shapeList.remove(ShapeRepository.find(_shape));
+            //shapeList.remove(ShapeRepository.find(_shape));
+            shapeList.remove(_shape);
         }
 
         ShapeRepository.drawAll();
