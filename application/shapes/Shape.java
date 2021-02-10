@@ -20,4 +20,7 @@ public abstract class Shape implements IShape {
 
     protected Point pressedPoint;
     protected Point releasedPoint;
+
+    protected Point topLeftPoint;
+    protected Point bottomRightPoint;
 }

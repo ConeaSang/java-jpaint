@@ -23,25 +23,31 @@ public class ShapeRectangle extends Shape {
         this.pressedPoint = new Point(_shapeInfo.getPressedPoint());
         //this.releasedPoint = _shapeInfo.getReleasedPoint();
         this.releasedPoint = new Point(_shapeInfo.getReleasedPoint());
+
+        // Find topLeftPoint & bottomRightPoint
+        this.topLeftPoint = new Point(0, 0);
+        this.bottomRightPoint = new Point(0, 0);
+
+        if (this.pressedPoint.getX() < this.releasedPoint.getX()) {
+            this.topLeftPoint.setX(this.pressedPoint.getX());
+            this.bottomRightPoint.setX(this.releasedPoint.getX());
+        } else {
+            this.topLeftPoint.setX(this.releasedPoint.getX());
+            this.bottomRightPoint.setX(this.pressedPoint.getX());
+        }
+
+        if (this.pressedPoint.getY() < this.releasedPoint.getY()) {
+            this.topLeftPoint.setY(this.pressedPoint.getY());
+            this.bottomRightPoint.setY(this.releasedPoint.getY());
+        } else {
+            this.topLeftPoint.setY(this.releasedPoint.getY());
+            this.bottomRightPoint.setY(this.pressedPoint.getY());
+        }
     }
 
     // Methods
     @Override
     public void draw(Graphics2D _graphics2D) {
-        Point topLeftPoint = new Point(0, 0);
-
-        if (this.pressedPoint.getX() < this.releasedPoint.getX()) {
-            topLeftPoint.setX(this.pressedPoint.getX());
-        } else {
-            topLeftPoint.setX(this.releasedPoint.getX());
-        }
-
-        if (this.pressedPoint.getY() < this.releasedPoint.getY()) {
-            topLeftPoint.setY(this.pressedPoint.getY());
-        } else {
-            topLeftPoint.setY(this.releasedPoint.getY());
-        }
-
         int width = Math.abs(this.releasedPoint.getX() - this.pressedPoint.getX());
         int height = Math.abs(this.releasedPoint.getY() - this.pressedPoint.getY());
 
@@ -52,20 +58,20 @@ public class ShapeRectangle extends Shape {
         if (this.shadingType == ShapeShadingType.OUTLINE) {
             _graphics2D.setStroke(new BasicStroke(5));
             _graphics2D.setColor(this.primaryColor);
-            _graphics2D.drawRect(topLeftPoint.getX(), topLeftPoint.getY(), width, height);
+            _graphics2D.drawRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
 
         } else if (this.shadingType == ShapeShadingType.FILLED_IN) {
             _graphics2D.setColor(this.primaryColor);
-            _graphics2D.fillRect(topLeftPoint.getX(), topLeftPoint.getY(), width, height);
-            System.out.println("fillRect");
+            _graphics2D.fillRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
+            //System.out.println("fillRect");
 
         } else {
             _graphics2D.setColor(this.primaryColor);
-            _graphics2D.fillRect(topLeftPoint.getX(), topLeftPoint.getY(), width, height);
+            _graphics2D.fillRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
 
             _graphics2D.setStroke(new BasicStroke(5));
             _graphics2D.setColor(this.secondaryColor);
-            _graphics2D.drawRect(topLeftPoint.getX(), topLeftPoint.getY(), width, height);
+            _graphics2D.drawRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
         }
 
 //        // Only Green Rectangle for now
@@ -81,7 +87,17 @@ public class ShapeRectangle extends Shape {
         //--------------------------------------------------
     }
 
-//    @Override
+    @Override
+    public Point getTopLeftPoint() {
+        return this.topLeftPoint;
+    }
+
+    @Override
+    public Point getBottomRightPoint() {
+        return this.bottomRightPoint;
+    }
+
+    //    @Override
 //    public PaintCanvasBase getPaintCanvas() {
 //        return this.paintCanvas;
 //    }

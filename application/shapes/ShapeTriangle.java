@@ -22,6 +22,26 @@ public class ShapeTriangle extends Shape {
         this.pressedPoint = new application.Point(_shapeInfo.getPressedPoint());
         //this.releasedPoint = _shapeInfo.getReleasedPoint();
         this.releasedPoint = new Point(_shapeInfo.getReleasedPoint());
+
+        // Find topLeftPoint & bottomRightPoint
+        this.topLeftPoint = new Point(0, 0);
+        this.bottomRightPoint = new Point(0, 0);
+
+        if (this.pressedPoint.getX() < this.releasedPoint.getX()) {
+            this.topLeftPoint.setX(this.pressedPoint.getX());
+            this.bottomRightPoint.setX(this.releasedPoint.getX());
+        } else {
+            this.topLeftPoint.setX(this.releasedPoint.getX());
+            this.bottomRightPoint.setX(this.pressedPoint.getX());
+        }
+
+        if (this.pressedPoint.getY() < this.releasedPoint.getY()) {
+            this.topLeftPoint.setY(this.pressedPoint.getY());
+            this.bottomRightPoint.setY(this.releasedPoint.getY());
+        } else {
+            this.topLeftPoint.setY(this.releasedPoint.getY());
+            this.bottomRightPoint.setY(this.pressedPoint.getY());
+        }
     }
 
     // Methods
@@ -50,7 +70,7 @@ public class ShapeTriangle extends Shape {
         } else if (this.shadingType == ShapeShadingType.FILLED_IN) {
             _graphics2D.setColor(this.primaryColor);
             _graphics2D.fillPolygon(xArray, yArray, 3);
-            System.out.println("fillPolygon");
+            //System.out.println("fillPolygon");
 
         } else {
             _graphics2D.setColor(this.primaryColor);
@@ -60,6 +80,16 @@ public class ShapeTriangle extends Shape {
             _graphics2D.setColor(this.secondaryColor);
             _graphics2D.drawPolygon(xArray, yArray, 3);
         }
+    }
+
+    @Override
+    public Point getTopLeftPoint() {
+        return this.topLeftPoint;
+    }
+
+    @Override
+    public Point getBottomRightPoint() {
+        return this.bottomRightPoint;
     }
 
 //    @Override

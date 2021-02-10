@@ -4,7 +4,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
 import application.commands.CmdCreateShape;
+import application.commands.CmdSelectShape;
 import application.commands.ICommand;
+import model.MouseMode;
 import model.interfaces.IApplicationState;
 import view.interfaces.PaintCanvasBase;
 
@@ -47,12 +49,24 @@ public class CanvasMouseListener implements MouseListener {
         this.pointReleased.setX(e.getX());
         this.pointReleased.setY(e.getY());
 
-        if ((this.pointPressed.getX() != this.pointReleased.getX()) || (this.pointPressed.getY() != this.pointReleased.getY()))
-        {
-            ICommand cmd = new CmdCreateShape(this.appState, this.pointPressed, this.pointReleased);
+        // MouseMode
+        if (this.appState.getActiveMouseMode() == MouseMode.DRAW) {
+            // MouseMode.DRAW
+            if ((this.pointPressed.getX() != this.pointReleased.getX()) || (this.pointPressed.getY() != this.pointReleased.getY()))
+            {
+                ICommand cmd = new CmdCreateShape(this.appState, this.pointPressed, this.pointReleased);
+                cmd.execute();
+            }
+        } else if (this.appState.getActiveMouseMode() == MouseMode.SELECT) {
+            // MouseMode.SELECT
+            ICommand cmd = new CmdSelectShape(this.appState, this.pointPressed, this.pointReleased);
             cmd.execute();
+        } else {
+            // MouseMode.MOVE
+
         }
 
+        // Reset
         this.pointPressed.setX(0);
         this.pointPressed.setY(0);
         this.pointReleased.setX(0);
