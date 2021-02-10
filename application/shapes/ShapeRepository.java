@@ -23,12 +23,12 @@ public class ShapeRepository {
     {
         ShapeRepository.mainShapeList.add(_shape);
 
-        System.out.println("add() - mainShapeList size: " + ShapeRepository.mainShapeList.size());
-
         //ShapeRepository.deleteAll();
         //ShapeRepository.drawAll();
         _shape.draw(ShapeRepository.paintCanvas.getGraphics2D());
         //_shape.getPaintCanvas().repaint();
+
+        System.out.println("add() - mainShapeList size: " + ShapeRepository.mainShapeList.size());
     }
 
     public static void remove(IShape _shape) {
@@ -37,11 +37,10 @@ public class ShapeRepository {
             ShapeRepository.mainShapeList.remove(_shape);
         }
 
-        System.out.println("remove() - mainShapeList size: " + ShapeRepository.mainShapeList.size());
-
         ShapeRepository.deleteAll();
-
         ShapeRepository.drawAll();
+
+        System.out.println("remove() - mainShapeList size: " + ShapeRepository.mainShapeList.size());
     }
 
     public static void setMainShapeList(ArrayList<IShape> _shapeList) {
@@ -62,12 +61,11 @@ public class ShapeRepository {
             s.translateAllPoint(_deltaX, _deltaY);
         }
 
+        ShapeRepository.deleteAll();
+        ShapeRepository.drawAll();
+
         System.out.println("updateForMove() - mainShapeList size: " + ShapeRepository.mainShapeList.size());
         System.out.println("updateForMove() - selectedShapeList size: " + ShapeRepository.selectedShapeList.size());
-
-        ShapeRepository.deleteAll();
-
-        ShapeRepository.drawAll();
     }
 
     public static void setSelectedShapeList(ArrayList<IShape> _shapeList) {
@@ -101,9 +99,9 @@ public class ShapeRepository {
     {
         //shapeList.get(0).getPaintCanvas().repaint();
         //PaintCanvasBase paintCanvas = shapeList.get(0).getPaintCanvas();
-        Graphics2D graphics2D = ShapeRepository.paintCanvas.getGraphics2D();
-        graphics2D.setColor(Color.WHITE);
-        graphics2D.fillRect(0, 0, ShapeRepository.paintCanvas.getWidth(), ShapeRepository.paintCanvas.getHeight());
+        Graphics2D g2D = ShapeRepository.paintCanvas.getGraphics2D();
+        g2D.setColor(Color.WHITE);
+        g2D.fillRect(0, 0, ShapeRepository.paintCanvas.getWidth(), ShapeRepository.paintCanvas.getHeight());
     }
 
     public static void drawAll()

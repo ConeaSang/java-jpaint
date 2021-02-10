@@ -46,7 +46,7 @@ public class ShapeTriangle extends Shape {
 
     // Methods
     @Override
-    public void draw(Graphics2D _graphics2D) {
+    public void draw(Graphics2D _g2D) {
         int[] xArray = new int[3];
         int[] yArray = new int[3];
 
@@ -63,22 +63,22 @@ public class ShapeTriangle extends Shape {
 
         // ShadingType
         if (this.shadingType == ShapeShadingType.OUTLINE) {
-            _graphics2D.setStroke(new BasicStroke(5));
-            _graphics2D.setColor(this.primaryColor);
-            _graphics2D.drawPolygon(xArray, yArray, 3);
+            _g2D.setStroke(new BasicStroke(5));
+            _g2D.setColor(this.primaryColor);
+            _g2D.drawPolygon(xArray, yArray, 3);
 
         } else if (this.shadingType == ShapeShadingType.FILLED_IN) {
-            _graphics2D.setColor(this.primaryColor);
-            _graphics2D.fillPolygon(xArray, yArray, 3);
+            _g2D.setColor(this.primaryColor);
+            _g2D.fillPolygon(xArray, yArray, 3);
             //System.out.println("fillPolygon");
 
         } else {
-            _graphics2D.setColor(this.primaryColor);
-            _graphics2D.fillPolygon(xArray, yArray, 3);
+            _g2D.setColor(this.primaryColor);
+            _g2D.fillPolygon(xArray, yArray, 3);
 
-            _graphics2D.setStroke(new BasicStroke(5));
-            _graphics2D.setColor(this.secondaryColor);
-            _graphics2D.drawPolygon(xArray, yArray, 3);
+            _g2D.setStroke(new BasicStroke(5));
+            _g2D.setColor(this.secondaryColor);
+            _g2D.drawPolygon(xArray, yArray, 3);
         }
     }
 
