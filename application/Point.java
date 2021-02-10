@@ -25,6 +25,11 @@ public class Point {
         this.y = _y;
     }
 
+    public void setXY(int _x, int _y) {
+        this.x = _x;
+        this.y = _y;
+    }
+
     public int getX() {
         return this.x;
     }

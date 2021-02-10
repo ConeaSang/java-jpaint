@@ -23,7 +23,7 @@ public class ShapeRepository {
     {
         ShapeRepository.mainShapeList.add(_shape);
 
-        System.out.println("add() - shapeList size: " + ShapeRepository.mainShapeList.size());
+        System.out.println("add() - mainShapeList size: " + ShapeRepository.mainShapeList.size());
 
         //ShapeRepository.deleteAll();
         //ShapeRepository.drawAll();
@@ -37,21 +37,51 @@ public class ShapeRepository {
             ShapeRepository.mainShapeList.remove(_shape);
         }
 
-        System.out.println("remove() - shapeList size: " + ShapeRepository.mainShapeList.size());
+        System.out.println("remove() - mainShapeList size: " + ShapeRepository.mainShapeList.size());
 
         ShapeRepository.deleteAll();
 
         ShapeRepository.drawAll();
     }
 
-    public static void updateSelectedShapeList(Point _topLeftCollision, Point _bottomRightCollision) {
+    public static void setMainShapeList(ArrayList<IShape> _shapeList) {
+        ShapeRepository.mainShapeList.clear();
+
+        for (IShape s : _shapeList) {
+            ShapeRepository.mainShapeList.add(s);
+        }
+    }
+
+    public static ArrayList<IShape> getMainShapeList() {
+        return ShapeRepository.mainShapeList;
+    }
+
+    public static void updateMainShapeListForMove(int _deltaX, int _deltaY) {
+        for (IShape s : ShapeRepository.selectedShapeList) {
+            s.translateAllPoint(_deltaX, _deltaY);
+        }
+
+        System.out.println("updateForMove() - mainShapeList size: " + ShapeRepository.mainShapeList.size());
+        System.out.println("updateForMove() - selectedShapeList size: " + ShapeRepository.selectedShapeList.size());
+
+        ShapeRepository.deleteAll();
+
+        ShapeRepository.drawAll();
+    }
+
+    public static void updateSelectedShapeListForCollision(Point _topLeftCollision, Point _bottomRightCollision) {
         ShapeRepository.clearSelectedShapeList();
 
-        for (IShape s :ShapeRepository.mainShapeList) {
+        for (IShape s : ShapeRepository.mainShapeList) {
             if (ShapeRepository.checkCollision(s, _topLeftCollision, _bottomRightCollision)) {
+                System.out.println("Collided");
                 ShapeRepository.selectedShapeList.add(s);
-            } 
+            } else {
+                System.out.println("Not collided");
+            }
         }
+
+        System.out.println("updateForCollision() - selectedShapeList size: " + ShapeRepository.selectedShapeList.size());
     }
 
     // private Methods
