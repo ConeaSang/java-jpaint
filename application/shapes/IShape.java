@@ -11,5 +11,7 @@ public interface IShape {
     Point getTopLeftPoint();
     Point getBottomRightPoint();
 
+    void translateAllPoint(int _deltaX, int _deltaY);
+
     //PaintCanvasBase getPaintCanvas();
 }

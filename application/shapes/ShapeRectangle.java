@@ -97,6 +97,14 @@ public class ShapeRectangle extends Shape {
         return this.bottomRightPoint;
     }
 
+    @Override
+    public void translateAllPoint(int _deltaX, int _deltaY) {
+        this.pressedPoint.setXY(this.pressedPoint.getX() + _deltaX, this.pressedPoint.getY() + _deltaY);
+        this.releasedPoint.setXY(this.releasedPoint.getX() + _deltaX, this.releasedPoint.getY() + _deltaY);
+        this.topLeftPoint.setXY(this.topLeftPoint.getX() + _deltaX, this.topLeftPoint.getY() + _deltaY);
+        this.bottomRightPoint.setXY(this.bottomRightPoint.getX() + _deltaX, this.bottomRightPoint.getY() + _deltaY);
+    }
+
     //    @Override
 //    public PaintCanvasBase getPaintCanvas() {
 //        return this.paintCanvas;

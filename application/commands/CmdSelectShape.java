@@ -36,6 +36,6 @@ public class CmdSelectShape implements ICommand {
     public void execute() {
         System.out.println("---> execute() CmdSelectShape");
 
-        ShapeRepository.updateSelectedShapeList(this.topLeftCollision, this.bottomRightCollision);
+        ShapeRepository.updateSelectedShapeListForCollision(this.topLeftCollision, this.bottomRightCollision);
     }
 }

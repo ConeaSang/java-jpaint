@@ -4,6 +4,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
 import application.commands.CmdCreateShape;
+import application.commands.CmdMoveShape;
 import application.commands.CmdSelectShape;
 import application.commands.ICommand;
 import model.MouseMode;
@@ -49,21 +50,30 @@ public class CanvasMouseListener implements MouseListener {
         this.pointReleased.setX(e.getX());
         this.pointReleased.setY(e.getY());
 
-        // MouseMode
-        if (this.appState.getActiveMouseMode() == MouseMode.DRAW) {
-            // MouseMode.DRAW
-            if ((this.pointPressed.getX() != this.pointReleased.getX()) || (this.pointPressed.getY() != this.pointReleased.getY()))
-            {
-                ICommand cmd = new CmdCreateShape(this.appState, this.pointPressed, this.pointReleased);
-                cmd.execute();
-            }
-        } else if (this.appState.getActiveMouseMode() == MouseMode.SELECT) {
-            // MouseMode.SELECT
-            ICommand cmd = new CmdSelectShape(this.appState, this.pointPressed, this.pointReleased);
-            cmd.execute();
-        } else {
-            // MouseMode.MOVE
+        ICommand cmd;
 
+        // MouseMode
+        switch (this.appState.getActiveMouseMode()) {
+            case DRAW:
+                // MouseMode.DRAW
+                if ((this.pointPressed.getX() != this.pointReleased.getX()) || (this.pointPressed.getY() != this.pointReleased.getY()))
+                {
+                    cmd = new CmdCreateShape(this.appState, this.pointPressed, this.pointReleased);
+                    cmd.execute();
+                }
+                break;
+
+            case SELECT:
+                // MouseMode.SELECT
+                cmd = new CmdSelectShape(this.appState, this.pointPressed, this.pointReleased);
+                cmd.execute();
+                break;
+
+            case MOVE:
+                // MouseMode.MOVE
+                cmd = new CmdMoveShape(this.appState, this.pointPressed, this.pointReleased);
+                cmd.execute();
+                break;
         }
 
         // Reset
