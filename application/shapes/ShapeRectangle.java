@@ -47,7 +47,7 @@ public class ShapeRectangle extends Shape {
 
     // Methods
     @Override
-    public void draw(Graphics2D _graphics2D) {
+    public void draw(Graphics2D _g2D) {
         int width = Math.abs(this.releasedPoint.getX() - this.pressedPoint.getX());
         int height = Math.abs(this.releasedPoint.getY() - this.pressedPoint.getY());
 
@@ -56,22 +56,22 @@ public class ShapeRectangle extends Shape {
 
         // ShadingType
         if (this.shadingType == ShapeShadingType.OUTLINE) {
-            _graphics2D.setStroke(new BasicStroke(5));
-            _graphics2D.setColor(this.primaryColor);
-            _graphics2D.drawRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
+            _g2D.setStroke(new BasicStroke(5));
+            _g2D.setColor(this.primaryColor);
+            _g2D.drawRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
 
         } else if (this.shadingType == ShapeShadingType.FILLED_IN) {
-            _graphics2D.setColor(this.primaryColor);
-            _graphics2D.fillRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
+            _g2D.setColor(this.primaryColor);
+            _g2D.fillRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
             //System.out.println("fillRect");
 
         } else {
-            _graphics2D.setColor(this.primaryColor);
-            _graphics2D.fillRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
+            _g2D.setColor(this.primaryColor);
+            _g2D.fillRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
 
-            _graphics2D.setStroke(new BasicStroke(5));
-            _graphics2D.setColor(this.secondaryColor);
-            _graphics2D.drawRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
+            _g2D.setStroke(new BasicStroke(5));
+            _g2D.setColor(this.secondaryColor);
+            _g2D.drawRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
         }
 
 //        // Only Green Rectangle for now
