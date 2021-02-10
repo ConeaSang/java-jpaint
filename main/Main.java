@@ -1,6 +1,7 @@
 package main;
 
 import application.CanvasMouseListener;
+import application.shapes.ShapeRepository;
 import controller.IJPaintController;
 import controller.JPaintController;
 import model.ShapeColor;
@@ -24,6 +25,9 @@ public class Main {
 		ApplicationState appState = new ApplicationState(uiModule);
 		IJPaintController controller = new JPaintController(uiModule, appState);
 		controller.setup();
+
+		// Setup
+		ShapeRepository shapeRepo = new ShapeRepository(paintCanvas);
 
 		// Mouse Listener
 		CanvasMouseListener mouseListener = new CanvasMouseListener(paintCanvas, appState);

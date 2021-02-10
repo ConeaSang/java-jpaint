@@ -1,9 +1,10 @@
 package application.shapes;
 
+import application.Point;
 import model.ShapeShadingType;
 import view.interfaces.PaintCanvasBase;
 
-import java.awt.BasicStroke;
+import java.awt.*;
 
 public class ShapeTriangle extends Shape {
     // Data
@@ -11,14 +12,16 @@ public class ShapeTriangle extends Shape {
     // Constructors
     public ShapeTriangle(ShapeInfo _shapeInfo) {
         this.paintCanvas = _shapeInfo.getPaintCanvas();
-        this.graphics2D = _shapeInfo.getPaintCanvas().getGraphics2D();
+        //this.graphics2D = _shapeInfo.getPaintCanvas().getGraphics2D();
         this.shapeType = _shapeInfo.getShapeType();
         this.primaryColor = _shapeInfo.getPrimaryColor();
         this.secondaryColor = _shapeInfo.getSecondaryColor();
         this.shadingType = _shapeInfo.getShadingType();
 
-        this.pressedPoint = _shapeInfo.getPressedPoint();
-        this.releasedPoint = _shapeInfo.getReleasedPoint();
+        //this.pressedPoint = _shapeInfo.getPressedPoint();
+        this.pressedPoint = new application.Point(_shapeInfo.getPressedPoint());
+        //this.releasedPoint = _shapeInfo.getReleasedPoint();
+        this.releasedPoint = new Point(_shapeInfo.getReleasedPoint());
     }
 
     // Methods
@@ -35,24 +38,27 @@ public class ShapeTriangle extends Shape {
         yArray[1] = this.releasedPoint.getY();
         yArray[2] = this.releasedPoint.getY();
 
+        // getGraphics2D
+        Graphics2D graphics2D = this.paintCanvas.getGraphics2D();
+
         // ShadingType
         if (this.shadingType == ShapeShadingType.OUTLINE) {
-            this.graphics2D.setStroke(new BasicStroke(5));
-            this.graphics2D.setColor(this.primaryColor);
-            this.graphics2D.drawPolygon(xArray, yArray, 3);
+            graphics2D.setStroke(new BasicStroke(5));
+            graphics2D.setColor(this.primaryColor);
+            graphics2D.drawPolygon(xArray, yArray, 3);
 
         } else if (this.shadingType == ShapeShadingType.FILLED_IN) {
-            this.graphics2D.setColor(this.primaryColor);
-            this.graphics2D.fillPolygon(xArray, yArray, 3);
+            graphics2D.setColor(this.primaryColor);
+            graphics2D.fillPolygon(xArray, yArray, 3);
             System.out.println("fillPolygon");
 
         } else {
-            this.graphics2D.setColor(this.primaryColor);
-            this.graphics2D.fillPolygon(xArray, yArray, 3);
+            graphics2D.setColor(this.primaryColor);
+            graphics2D.fillPolygon(xArray, yArray, 3);
 
-            this.graphics2D.setStroke(new BasicStroke(5));
-            this.graphics2D.setColor(this.secondaryColor);
-            this.graphics2D.drawPolygon(xArray, yArray, 3);
+            graphics2D.setStroke(new BasicStroke(5));
+            graphics2D.setColor(this.secondaryColor);
+            graphics2D.drawPolygon(xArray, yArray, 3);
         }
     }
 

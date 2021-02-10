@@ -11,6 +11,11 @@ public class Point {
         this.y = _y;
     }
 
+    public Point(Point p) {
+        this.x = p.x;
+        this.y = p.y;
+    }
+
     // Methods
     public void setX(int _x) {
         this.x = _x;

@@ -5,33 +5,38 @@ import view.interfaces.PaintCanvasBase;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static java.lang.Thread.sleep;
-
 public class ShapeRepository {
     // Data
     private static final ArrayList<IShape> shapeList = new ArrayList<>();
+    private static PaintCanvasBase paintCanvas;
 
     // Constructors
-    private ShapeRepository() {
+    public ShapeRepository(PaintCanvasBase _paintCanvas) {
+        ShapeRepository.paintCanvas = _paintCanvas;
     }
 
     // Methods
     public static void add(IShape _shape)
     {
         shapeList.add(_shape);
-        System.out.println("shapeList size: " + shapeList.size());
+
+        System.out.println("add() - shapeList size: " + shapeList.size());
+
         //ShapeRepository.deleteAll();
         //ShapeRepository.drawAll();
         _shape.draw();
+        //_shape.getPaintCanvas().repaint();
     }
 
     public static void remove(IShape _shape) {
-        ShapeRepository.deleteAll();
-
         if (shapeList.contains(_shape)) {
             //shapeList.remove(ShapeRepository.find(_shape));
             shapeList.remove(_shape);
         }
+
+        System.out.println("remove() - shapeList size: " + shapeList.size());
+
+        ShapeRepository.deleteAll();
 
         ShapeRepository.drawAll();
     }
@@ -52,11 +57,10 @@ public class ShapeRepository {
     private static void deleteAll()
     {
         //shapeList.get(0).getPaintCanvas().repaint();
-        PaintCanvasBase paintCanvas = shapeList.get(0).getPaintCanvas();
-        Graphics2D graphics2D = paintCanvas.getGraphics2D();
+        //PaintCanvasBase paintCanvas = shapeList.get(0).getPaintCanvas();
+        Graphics2D graphics2D = ShapeRepository.paintCanvas.getGraphics2D();
         graphics2D.setColor(Color.WHITE);
         graphics2D.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
-
     }
 
     private static void drawAll()

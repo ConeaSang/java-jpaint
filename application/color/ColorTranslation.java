@@ -7,7 +7,11 @@ import java.util.EnumMap;
 
 public class ColorTranslation {
 	// Data
-	private static EnumMap<ShapeColor, java.awt.Color> mapColor = linkTheColor();
+	private static EnumMap<ShapeColor, java.awt.Color> mapColor;
+
+	static {
+		ColorTranslation.mapColor = linkTheColor();
+	}
 
 	// Constructors
 	private  ColorTranslation() {

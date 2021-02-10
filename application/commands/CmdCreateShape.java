@@ -18,17 +18,12 @@ public class CmdCreateShape implements ICommand {
         this.shapeInfo = new ShapeInfo(_paintCanvas);
 
         // Set values
-        this.shapeInfo.setShapeType(_appState.getActiveShapeType());
-
-        this.shapeInfo.setPrimaryColor(ColorTranslation.getColor(_appState.getActivePrimaryColor()));
-
-        this.shapeInfo.setSecondaryColor(ColorTranslation.getColor(_appState.getActiveSecondaryColor()));
-
-        this.shapeInfo.setShadingType(_appState.getActiveShapeShadingType());
-
-        this.shapeInfo.setPressedPoint(_pressedPoint);
-
-        this.shapeInfo.setReleasedPoint(_releasedPoint);
+        this.shapeInfo.setShapeType(_appState.getActiveShapeType())
+                      .setPrimaryColor(ColorTranslation.getColor(_appState.getActivePrimaryColor()))
+                      .setSecondaryColor(ColorTranslation.getColor(_appState.getActiveSecondaryColor()))
+                      .setShadingType(_appState.getActiveShapeShadingType())
+                      .setPressedPoint(_pressedPoint)
+                      .setReleasedPoint(_releasedPoint);
 
 //        Point pointTmp = new Point(0,0);
 //
