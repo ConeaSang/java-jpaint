@@ -13,6 +13,5 @@ public enum ShapeColor {
     PINK,
     RED,
     WHITE,
-    YELLOW,
-    UNINITIALIZED
+    YELLOW
 }

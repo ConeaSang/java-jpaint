@@ -9,16 +9,20 @@ import static java.lang.Thread.sleep;
 
 public class ShapeRepository {
     // Data
-    private static final ArrayList<IShape> shapeList = new ArrayList<IShape>();
+    private static final ArrayList<IShape> shapeList = new ArrayList<>();
 
     // Constructors
+    private ShapeRepository() {
+    }
 
     // Methods
     public static void add(IShape _shape)
     {
         shapeList.add(_shape);
+        System.out.println("shapeList size: " + shapeList.size());
         //ShapeRepository.deleteAll();
-        ShapeRepository.drawAll();
+        //ShapeRepository.drawAll();
+        _shape.draw();
     }
 
     public static void remove(IShape _shape) {
@@ -52,6 +56,7 @@ public class ShapeRepository {
         Graphics2D graphics2D = paintCanvas.getGraphics2D();
         graphics2D.setColor(Color.WHITE);
         graphics2D.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
+
     }
 
     private static void drawAll()

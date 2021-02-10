@@ -1,11 +1,12 @@
 package application.commands;
 
 import application.Point;
+import application.color.ColorTranslation;
 import application.shapes.IShape;
 import application.shapes.ShapeFactory;
 import application.shapes.ShapeInfo;
-import application.shapes.ShapeRepository;
 import model.ShapeType;
+import model.interfaces.IApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 public class CmdCreateShape implements ICommand {
@@ -13,30 +14,40 @@ public class CmdCreateShape implements ICommand {
     private ShapeInfo shapeInfo;
 
     // Constructors
-    public CmdCreateShape(PaintCanvasBase _paintCanvas, application.Point _pointPressed, application.Point _pointReleased) {
+    public CmdCreateShape(PaintCanvasBase _paintCanvas, IApplicationState _appState, application.Point _pressedPoint, application.Point _releasedPoint) {
         this.shapeInfo = new ShapeInfo(_paintCanvas);
 
-        // Assume (Need to fix)
-        this.shapeInfo.setShapeType(ShapeType.RECTANGLE);
+        // Set values
+        this.shapeInfo.setShapeType(_appState.getActiveShapeType());
 
-        Point pointTmp = new Point(0,0);
+        this.shapeInfo.setPrimaryColor(ColorTranslation.getColor(_appState.getActivePrimaryColor()));
 
-        if (_pointPressed.getX() < _pointReleased.getX()) {
-            pointTmp.setX(_pointPressed.getX());
-        } else {
-            pointTmp.setX(_pointReleased.getX());
-        }
+        this.shapeInfo.setSecondaryColor(ColorTranslation.getColor(_appState.getActiveSecondaryColor()));
 
-        if (_pointPressed.getY() < _pointReleased.getY()) {
-            pointTmp.setY(_pointPressed.getY());
-        } else {
-            pointTmp.setY(_pointReleased.getY());
-        }
+        this.shapeInfo.setShadingType(_appState.getActiveShapeShadingType());
 
-        this.shapeInfo.setPointTopLeft(pointTmp);
+        this.shapeInfo.setPressedPoint(_pressedPoint);
 
-        this.shapeInfo.setWidth(Math.abs(_pointReleased.getX() - _pointPressed.getX()));
-        this.shapeInfo.setHeight(Math.abs(_pointReleased.getY() - _pointPressed.getY()));
+        this.shapeInfo.setReleasedPoint(_releasedPoint);
+
+//        Point pointTmp = new Point(0,0);
+//
+//        if (_pressedPoint.getX() < _releasedPoint.getX()) {
+//            pointTmp.setX(_pressedPoint.getX());
+//        } else {
+//            pointTmp.setX(_releasedPoint.getX());
+//        }
+//
+//        if (_pressedPoint.getY() < _releasedPoint.getY()) {
+//            pointTmp.setY(_pressedPoint.getY());
+//        } else {
+//            pointTmp.setY(_releasedPoint.getY());
+//        }
+//
+//        this.shapeInfo.setPointTopLeft(pointTmp);
+//
+//        this.shapeInfo.setWidth(Math.abs(_releasedPoint.getX() - _pressedPoint.getX()));
+//        this.shapeInfo.setHeight(Math.abs(_releasedPoint.getY() - _pressedPoint.getY()));
     }
 
     // Methods
@@ -48,11 +59,11 @@ public class CmdCreateShape implements ICommand {
 
         // Call the ShapeFactory
         if (this.shapeInfo.getShapeType() == ShapeType.ELLIPSE) {
-            shape = ShapeFactory.getShapeEllipse(this.shapeInfo);
+            shape = ShapeFactory.createShapeEllipse(this.shapeInfo);
         } else if (this.shapeInfo.getShapeType() == ShapeType.RECTANGLE) {
-            shape = ShapeFactory.getShapeRectangle(this.shapeInfo);
+            shape = ShapeFactory.createShapeRectangle(this.shapeInfo);
         } else {
-            shape = ShapeFactory.getShapeTriangle(this.shapeInfo);
+            shape = ShapeFactory.createShapeTriangle(this.shapeInfo);
         }
 
         ICommand cmd = new CmdAddToRepo(shape);

@@ -3,6 +3,7 @@ package main;
 import application.CanvasMouseListener;
 import controller.IJPaintController;
 import controller.JPaintController;
+import model.ShapeColor;
 import model.persistence.ApplicationState;
 import view.gui.Gui;
 import view.gui.GuiWindow;
@@ -10,6 +11,9 @@ import view.gui.PaintCanvas;
 import view.interfaces.IGuiWindow;
 import view.interfaces.PaintCanvasBase;
 import view.interfaces.IUiModule;
+
+import java.awt.*;
+import java.util.EnumMap;
 
 public class Main {
 	public static void main(String[] args) {
@@ -22,27 +26,24 @@ public class Main {
 		controller.setup();
 
 		// Mouse Listener
-		CanvasMouseListener mouseListener = new CanvasMouseListener(paintCanvas);
+		CanvasMouseListener mouseListener = new CanvasMouseListener(paintCanvas, appState);
 		paintCanvas.addMouseListener(mouseListener);
-		
-		
 
-
-
-
-
-
+		//--------------------------------------------------
+		// Testing
 
 		//paintCanvas.addMouseListener(new );
 		
 		//ShapeType shapeType = appState.getActiveShapeType();
 
 		//if (shapeType == ShapeType.RECTANGLE) {
-
 		//}
 
+//		//EnumMap<ShapeColor, java.awt.Color> mapColor = new EnumMap<ShapeColor, Color>(ShapeColor.class);
+//		EnumMap<ShapeColor, java.awt.Color> mapColor = new EnumMap<>(ShapeColor.class);
+//		mapColor.put(ShapeColor.BLUE, Color.BLUE);
 
-		
+		//--------------------------------------------------
 		// For example purposes only; remove all lines below from your final project.
 
 		//try {
@@ -70,5 +71,7 @@ public class Main {
 		//graphics2d.setStroke(stroke);
 		//graphics2d.setColor(Color.BLACK);
 		//graphics2d.drawRect(7, 8, 210, 410);
+
+		//--------------------------------------------------
 	}
 }

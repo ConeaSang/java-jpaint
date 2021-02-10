@@ -3,6 +3,5 @@ package model;
 public enum MouseMode {
     DRAW,
     SELECT,
-    MOVE,
-    UNINITIALIZED
+    MOVE
 }
