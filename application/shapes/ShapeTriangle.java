@@ -11,7 +11,7 @@ public class ShapeTriangle extends Shape {
 
     // Constructors
     public ShapeTriangle(ShapeInfo _shapeInfo) {
-        this.paintCanvas = _shapeInfo.getPaintCanvas();
+        //this.paintCanvas = _shapeInfo.getPaintCanvas();
         //this.graphics2D = _shapeInfo.getPaintCanvas().getGraphics2D();
         this.shapeType = _shapeInfo.getShapeType();
         this.primaryColor = _shapeInfo.getPrimaryColor();
@@ -26,7 +26,7 @@ public class ShapeTriangle extends Shape {
 
     // Methods
     @Override
-    public void draw() {
+    public void draw(Graphics2D _graphics2D) {
         int[] xArray = new int[3];
         int[] yArray = new int[3];
 
@@ -39,31 +39,31 @@ public class ShapeTriangle extends Shape {
         yArray[2] = this.releasedPoint.getY();
 
         // getGraphics2D
-        Graphics2D graphics2D = this.paintCanvas.getGraphics2D();
+        //Graphics2D graphics2D = this.paintCanvas.getGraphics2D();
 
         // ShadingType
         if (this.shadingType == ShapeShadingType.OUTLINE) {
-            graphics2D.setStroke(new BasicStroke(5));
-            graphics2D.setColor(this.primaryColor);
-            graphics2D.drawPolygon(xArray, yArray, 3);
+            _graphics2D.setStroke(new BasicStroke(5));
+            _graphics2D.setColor(this.primaryColor);
+            _graphics2D.drawPolygon(xArray, yArray, 3);
 
         } else if (this.shadingType == ShapeShadingType.FILLED_IN) {
-            graphics2D.setColor(this.primaryColor);
-            graphics2D.fillPolygon(xArray, yArray, 3);
+            _graphics2D.setColor(this.primaryColor);
+            _graphics2D.fillPolygon(xArray, yArray, 3);
             System.out.println("fillPolygon");
 
         } else {
-            graphics2D.setColor(this.primaryColor);
-            graphics2D.fillPolygon(xArray, yArray, 3);
+            _graphics2D.setColor(this.primaryColor);
+            _graphics2D.fillPolygon(xArray, yArray, 3);
 
-            graphics2D.setStroke(new BasicStroke(5));
-            graphics2D.setColor(this.secondaryColor);
-            graphics2D.drawPolygon(xArray, yArray, 3);
+            _graphics2D.setStroke(new BasicStroke(5));
+            _graphics2D.setColor(this.secondaryColor);
+            _graphics2D.drawPolygon(xArray, yArray, 3);
         }
     }
 
-    @Override
-    public PaintCanvasBase getPaintCanvas() {
-        return this.paintCanvas;
-    }
+//    @Override
+//    public PaintCanvasBase getPaintCanvas() {
+//        return this.paintCanvas;
+//    }
 }

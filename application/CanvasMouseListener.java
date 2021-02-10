@@ -49,7 +49,7 @@ public class CanvasMouseListener implements MouseListener {
 
         if ((this.pointPressed.getX() != this.pointReleased.getX()) || (this.pointPressed.getY() != this.pointReleased.getY()))
         {
-            ICommand cmd = new CmdCreateShape(this.paintCanvas, this.appState, this.pointPressed, this.pointReleased);
+            ICommand cmd = new CmdCreateShape(this.appState, this.pointPressed, this.pointReleased);
             cmd.execute();
         }
 

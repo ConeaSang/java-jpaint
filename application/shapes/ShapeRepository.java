@@ -24,7 +24,7 @@ public class ShapeRepository {
 
         //ShapeRepository.deleteAll();
         //ShapeRepository.drawAll();
-        _shape.draw();
+        _shape.draw(ShapeRepository.paintCanvas.getGraphics2D());
         //_shape.getPaintCanvas().repaint();
     }
 
@@ -66,7 +66,7 @@ public class ShapeRepository {
     private static void drawAll()
     {
         for (IShape s : shapeList) {
-            s.draw();
+            s.draw(ShapeRepository.paintCanvas.getGraphics2D());
         }
     }
 }

@@ -10,7 +10,7 @@ import java.awt.Color;
 
 public class ShapeInfo {
     // Data
-    private PaintCanvasBase paintCanvas;
+    //private PaintCanvasBase paintCanvas;
     private ShapeType shapeType;
     private Color primaryColor;
     private Color secondaryColor;
@@ -24,8 +24,8 @@ public class ShapeInfo {
     //private int height;
 
     // Constructors
-    public ShapeInfo(PaintCanvasBase _paintCanvas) {
-        this.paintCanvas = _paintCanvas;
+    public ShapeInfo() {
+        //this.paintCanvas = _paintCanvas;
 
         //this.pointTopLeft = new Point(0,0);
         //this.width = 0;
@@ -81,7 +81,7 @@ public class ShapeInfo {
 //        return this;
 //    }
 
-    public PaintCanvasBase getPaintCanvas() { return this.paintCanvas; }
+    //public PaintCanvasBase getPaintCanvas() { return this.paintCanvas; }
 
     public ShapeType getShapeType()
     {
