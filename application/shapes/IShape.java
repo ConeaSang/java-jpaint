@@ -6,7 +6,7 @@ import view.interfaces.PaintCanvasBase;
 import java.awt.*;
 
 public interface IShape {
-    void draw();
+    void draw(Graphics2D _graphics2D);
 
-    PaintCanvasBase getPaintCanvas();
+    //PaintCanvasBase getPaintCanvas();
 }

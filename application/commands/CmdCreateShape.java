@@ -14,8 +14,9 @@ public class CmdCreateShape implements ICommand {
     private ShapeInfo shapeInfo;
 
     // Constructors
-    public CmdCreateShape(PaintCanvasBase _paintCanvas, IApplicationState _appState, application.Point _pressedPoint, application.Point _releasedPoint) {
-        this.shapeInfo = new ShapeInfo(_paintCanvas);
+    public CmdCreateShape(IApplicationState _appState, application.Point _pressedPoint, application.Point _releasedPoint) {
+        //this.shapeInfo = new ShapeInfo(_paintCanvas);
+        this.shapeInfo = new ShapeInfo();
 
         // Set values
         this.shapeInfo.setShapeType(_appState.getActiveShapeType())

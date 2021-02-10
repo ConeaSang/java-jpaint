@@ -11,7 +11,7 @@ public class ShapeEllipse extends Shape {
 
     // Constructors
     public ShapeEllipse(ShapeInfo _shapeInfo) {
-        this.paintCanvas = _shapeInfo.getPaintCanvas();
+        //this.paintCanvas = _shapeInfo.getPaintCanvas();
         //this.graphics2D = _shapeInfo.getPaintCanvas().getGraphics2D();
         this.shapeType = _shapeInfo.getShapeType();
         this.primaryColor = _shapeInfo.getPrimaryColor();
@@ -26,7 +26,7 @@ public class ShapeEllipse extends Shape {
 
     // Methods
     @Override
-    public void draw() {
+    public void draw(Graphics2D _graphics2D) {
         Point topLeftPoint = new Point(0, 0);
 
         if (this.pressedPoint.getX() < this.releasedPoint.getX()) {
@@ -45,29 +45,29 @@ public class ShapeEllipse extends Shape {
         int height = Math.abs(this.releasedPoint.getY() - this.pressedPoint.getY());
 
         // getGraphics2D
-        Graphics2D graphics2D = this.paintCanvas.getGraphics2D();
+        //Graphics2D graphics2D = this.paintCanvas.getGraphics2D();
 
         // ShadingType
         if (this.shadingType == ShapeShadingType.OUTLINE) {
-            graphics2D.setStroke(new BasicStroke(5));
-            graphics2D.setColor(this.primaryColor);
-            graphics2D.drawOval(topLeftPoint.getX(), topLeftPoint.getY(), width, height);
+            _graphics2D.setStroke(new BasicStroke(5));
+            _graphics2D.setColor(this.primaryColor);
+            _graphics2D.drawOval(topLeftPoint.getX(), topLeftPoint.getY(), width, height);
 
         } else if (this.shadingType == ShapeShadingType.FILLED_IN) {
-            graphics2D.setColor(this.primaryColor);
-            graphics2D.fillOval(topLeftPoint.getX(), topLeftPoint.getY(), width, height);
+            _graphics2D.setColor(this.primaryColor);
+            _graphics2D.fillOval(topLeftPoint.getX(), topLeftPoint.getY(), width, height);
             System.out.println("fillOval");
 
         } else {
-            graphics2D.setColor(this.primaryColor);
-            graphics2D.fillOval(topLeftPoint.getX(), topLeftPoint.getY(), width, height);
+            _graphics2D.setColor(this.primaryColor);
+            _graphics2D.fillOval(topLeftPoint.getX(), topLeftPoint.getY(), width, height);
 
-            graphics2D.setStroke(new BasicStroke(5));
-            graphics2D.setColor(this.secondaryColor);
-            graphics2D.drawOval(topLeftPoint.getX(), topLeftPoint.getY(), width, height);
+            _graphics2D.setStroke(new BasicStroke(5));
+            _graphics2D.setColor(this.secondaryColor);
+            _graphics2D.drawOval(topLeftPoint.getX(), topLeftPoint.getY(), width, height);
         }
     }
 
-    @Override
-    public PaintCanvasBase getPaintCanvas() { return this.paintCanvas; }
+//    @Override
+//    public PaintCanvasBase getPaintCanvas() { return this.paintCanvas; }
 }
