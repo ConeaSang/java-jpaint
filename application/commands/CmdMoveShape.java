@@ -38,8 +38,7 @@ public class CmdMoveShape implements ICommand, IUndoable {
             s.translateAllPoint(-this.deltaX, -this.deltaY);
         }
 
-        ShapeRepository.deleteAll();
-        ShapeRepository.drawAll();
+        ShapeRepository.reDrawAll();
     }
 
     @Override
@@ -49,8 +48,7 @@ public class CmdMoveShape implements ICommand, IUndoable {
             s.translateAllPoint(this.deltaX, this.deltaY);
         }
 
-        ShapeRepository.deleteAll();
-        ShapeRepository.drawAll();
+        ShapeRepository.reDrawAll();
     }
 
     public void setLocalMoveShapeList(ArrayList<IShape> _shapeList) {
