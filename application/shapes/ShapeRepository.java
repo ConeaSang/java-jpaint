@@ -6,6 +6,7 @@ import view.interfaces.PaintCanvasBase;
 import java.awt.*;
 import java.util.ArrayList;
 
+// This class could be Singleton in the future
 public class ShapeRepository {
     // Data
     private static final ArrayList<IShape> mainShapeList = new ArrayList<>();
@@ -23,22 +24,17 @@ public class ShapeRepository {
     {
         ShapeRepository.mainShapeList.add(_shape);
 
-        //ShapeRepository.deleteAll();
-        //ShapeRepository.drawAll();
         _shape.draw(ShapeRepository.paintCanvas.getGraphics2D());
-        //_shape.getPaintCanvas().repaint();
 
         System.out.println("add() - mainShapeList size: " + ShapeRepository.mainShapeList.size());
     }
 
     public static void remove(IShape _shape) {
         if (ShapeRepository.mainShapeList.contains(_shape)) {
-            //shapeList.remove(ShapeRepository.find(_shape));
             ShapeRepository.mainShapeList.remove(_shape);
         }
 
-        ShapeRepository.deleteAll();
-        ShapeRepository.drawAll();
+        ShapeRepository.reDrawAll();
 
         System.out.println("remove() - mainShapeList size: " + ShapeRepository.mainShapeList.size());
     }
@@ -55,19 +51,6 @@ public class ShapeRepository {
         return ShapeRepository.mainShapeList;
     }
 
-    public static void updateMainShapeListForMove(int _deltaX, int _deltaY) {
-        // This loop will also update the mainShapeList
-        for (IShape s : ShapeRepository.selectedShapeList) {
-            s.translateAllPoint(_deltaX, _deltaY);
-        }
-
-        ShapeRepository.deleteAll();
-        ShapeRepository.drawAll();
-
-        System.out.println("updateForMove() - mainShapeList size: " + ShapeRepository.mainShapeList.size());
-        System.out.println("updateForMove() - selectedShapeList size: " + ShapeRepository.selectedShapeList.size());
-    }
-
     public static void setSelectedShapeList(ArrayList<IShape> _shapeList) {
         ShapeRepository.selectedShapeList.clear();
 
@@ -78,6 +61,18 @@ public class ShapeRepository {
 
     public static ArrayList<IShape> getSelectedShapeList() {
         return ShapeRepository.selectedShapeList;
+    }
+
+    public static void updateMainShapeListForMove(int _deltaX, int _deltaY) {
+        // This loop will also update the mainShapeList
+        for (IShape s : ShapeRepository.selectedShapeList) {
+            s.translateAllPoint(_deltaX, _deltaY);
+        }
+
+        ShapeRepository.reDrawAll();
+
+        System.out.println("updateForMove() - mainShapeList size: " + ShapeRepository.mainShapeList.size());
+        System.out.println("updateForMove() - selectedShapeList size: " + ShapeRepository.selectedShapeList.size());
     }
 
     public static void updateSelectedShapeListForCollision(Point _topLeftCollision, Point _bottomRightCollision) {
@@ -95,17 +90,13 @@ public class ShapeRepository {
         System.out.println("updateForCollision() - selectedShapeList size: " + ShapeRepository.selectedShapeList.size());
     }
 
-    public static void deleteAll()
+    public static void reDrawAll()
     {
         //shapeList.get(0).getPaintCanvas().repaint();
-        //PaintCanvasBase paintCanvas = shapeList.get(0).getPaintCanvas();
         Graphics2D g2D = ShapeRepository.paintCanvas.getGraphics2D();
         g2D.setColor(Color.WHITE);
         g2D.fillRect(0, 0, ShapeRepository.paintCanvas.getWidth(), ShapeRepository.paintCanvas.getHeight());
-    }
 
-    public static void drawAll()
-    {
         for (IShape s : ShapeRepository.mainShapeList) {
             s.draw(ShapeRepository.paintCanvas.getGraphics2D());
         }
