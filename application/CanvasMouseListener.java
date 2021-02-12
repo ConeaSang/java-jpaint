@@ -7,6 +7,7 @@ import application.commands.CmdCreateShape;
 import application.commands.CmdMoveShape;
 import application.commands.CmdSelectShape;
 import application.commands.ICommand;
+import application.observers.ShapeRepository;
 import model.MouseMode;
 import model.interfaces.IApplicationState;
 import view.interfaces.PaintCanvasBase;
@@ -15,13 +16,15 @@ public class CanvasMouseListener implements MouseListener {
     // Data
     private PaintCanvasBase paintCanvas;
     private IApplicationState appState;
+    private ShapeRepository shapeRepo;
     private Point pointPressed;
     private Point pointReleased;
 
     // Constructors
-    public CanvasMouseListener(PaintCanvasBase _paintCanvas, IApplicationState _appState) {
+    public CanvasMouseListener(PaintCanvasBase _paintCanvas, IApplicationState _appState, ShapeRepository _shapeRepo) {
         this.paintCanvas = _paintCanvas;
         this.appState = _appState;
+        this.shapeRepo = _shapeRepo;
         this.pointPressed = new Point(0,0);
         this.pointReleased = new Point(0,0);
     }
@@ -30,8 +33,6 @@ public class CanvasMouseListener implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         System.out.println("mouseClicked: " + e.getX() + ", " + e.getY());
-
-        // Do something here for "Select"
     }
 
     @Override
@@ -58,20 +59,20 @@ public class CanvasMouseListener implements MouseListener {
                 // MouseMode.DRAW
                 if ((this.pointPressed.getX() != this.pointReleased.getX()) || (this.pointPressed.getY() != this.pointReleased.getY()))
                 {
-                    cmd = new CmdCreateShape(this.appState, this.pointPressed, this.pointReleased);
+                    cmd = new CmdCreateShape(this.appState, this.shapeRepo, this.pointPressed, this.pointReleased);
                     cmd.execute();
                 }
                 break;
 
             case SELECT:
                 // MouseMode.SELECT
-                cmd = new CmdSelectShape(this.appState, this.pointPressed, this.pointReleased);
+                cmd = new CmdSelectShape(this.appState, this.shapeRepo, this.pointPressed, this.pointReleased);
                 cmd.execute();
                 break;
 
             case MOVE:
                 // MouseMode.MOVE
-                cmd = new CmdMoveShape(this.appState, this.pointPressed, this.pointReleased);
+                cmd = new CmdMoveShape(this.appState, this.shapeRepo, this.pointPressed, this.pointReleased);
                 cmd.execute();
                 break;
         }

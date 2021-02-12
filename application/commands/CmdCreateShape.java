@@ -2,6 +2,7 @@ package application.commands;
 
 import application.Point;
 import application.color.ColorTranslation;
+import application.observers.ShapeRepository;
 import application.shapes.IShape;
 import application.shapes.ShapeFactory;
 import application.shapes.ShapeInfo;
@@ -12,11 +13,13 @@ import view.interfaces.PaintCanvasBase;
 public class CmdCreateShape implements ICommand {
     // Data
     private ShapeInfo shapeInfo;
+    private ShapeRepository shapeRepo;
 
     // Constructors
-    public CmdCreateShape(IApplicationState _appState, application.Point _pressedPoint, application.Point _releasedPoint) {
-        //this.shapeInfo = new ShapeInfo(_paintCanvas);
+    public CmdCreateShape(IApplicationState _appState, ShapeRepository _shapeRepo, application.Point _pressedPoint, application.Point _releasedPoint) {
         this.shapeInfo = new ShapeInfo();
+
+        this.shapeRepo = _shapeRepo;
 
         // Set values
         this.shapeInfo.setShapeType(_appState.getActiveShapeType())
@@ -25,25 +28,6 @@ public class CmdCreateShape implements ICommand {
                       .setShadingType(_appState.getActiveShapeShadingType())
                       .setPressedPoint(_pressedPoint)
                       .setReleasedPoint(_releasedPoint);
-
-//        Point pointTmp = new Point(0,0);
-//
-//        if (_pressedPoint.getX() < _releasedPoint.getX()) {
-//            pointTmp.setX(_pressedPoint.getX());
-//        } else {
-//            pointTmp.setX(_releasedPoint.getX());
-//        }
-//
-//        if (_pressedPoint.getY() < _releasedPoint.getY()) {
-//            pointTmp.setY(_pressedPoint.getY());
-//        } else {
-//            pointTmp.setY(_releasedPoint.getY());
-//        }
-//
-//        this.shapeInfo.setPointTopLeft(pointTmp);
-//
-//        this.shapeInfo.setWidth(Math.abs(_releasedPoint.getX() - _pressedPoint.getX()));
-//        this.shapeInfo.setHeight(Math.abs(_releasedPoint.getY() - _pressedPoint.getY()));
     }
 
     // Methods
@@ -62,7 +46,7 @@ public class CmdCreateShape implements ICommand {
             shape = ShapeFactory.createShapeTriangle(this.shapeInfo);
         }
 
-        ICommand cmd = new CmdAddToRepo(shape);
+        ICommand cmd = new CmdAddToRepo(this.shapeRepo, shape);
         cmd.execute();
     }
 }

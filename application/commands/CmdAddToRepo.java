@@ -1,14 +1,16 @@
 package application.commands;
 
 import application.shapes.IShape;
-import application.shapes.ShapeRepository;
+import application.observers.ShapeRepository;
 
 public class CmdAddToRepo implements ICommand, IUndoable {
     // Data
+    private ShapeRepository shapeRepo;
     private IShape shape;
 
     // Constructors
-    public CmdAddToRepo(IShape _shape) {
+    public CmdAddToRepo(ShapeRepository _shapeRepo, IShape _shape) {
+        this.shapeRepo = _shapeRepo;
         this.shape = _shape;
     }
 
@@ -17,17 +19,17 @@ public class CmdAddToRepo implements ICommand, IUndoable {
     public void execute() {
         System.out.println("---> execute() CmdAddToRepo");
 
-        ShapeRepository.add(this.shape);
+        this.shapeRepo.add(this.shape);
         CommandHistory.add(this);
     }
 
     @Override
     public void undo() {
-        ShapeRepository.remove(this.shape);
+        this.shapeRepo.remove(this.shape);
     }
 
     @Override
     public void redo() {
-        ShapeRepository.add(this.shape);
+        this.shapeRepo.add(this.shape);
     }
 }

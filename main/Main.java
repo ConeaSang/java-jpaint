@@ -1,10 +1,10 @@
 package main;
 
 import application.CanvasMouseListener;
-import application.shapes.ShapeRepository;
+import application.observers.ShapeDrawer;
+import application.observers.ShapeRepository;
 import controller.IJPaintController;
 import controller.JPaintController;
-import model.ShapeColor;
 import model.persistence.ApplicationState;
 import view.gui.Gui;
 import view.gui.GuiWindow;
@@ -12,9 +12,6 @@ import view.gui.PaintCanvas;
 import view.interfaces.IGuiWindow;
 import view.interfaces.PaintCanvasBase;
 import view.interfaces.IUiModule;
-
-import java.awt.*;
-import java.util.EnumMap;
 
 public class Main {
 	public static void main(String[] args) {
@@ -26,11 +23,13 @@ public class Main {
 		IJPaintController controller = new JPaintController(uiModule, appState);
 		controller.setup();
 
-		// Setup
-		ShapeRepository shapeRepo = new ShapeRepository(paintCanvas);
+		// Setup Observers
+		ShapeRepository shapeRepo = new ShapeRepository();
+		ShapeDrawer shapeDrawerObserver = new ShapeDrawer(paintCanvas);
+		shapeRepo.registerObserver(shapeDrawerObserver);
 
-		// Mouse Listener
-		CanvasMouseListener mouseListener = new CanvasMouseListener(paintCanvas, appState);
+		// Setup Mouse Listeners
+		CanvasMouseListener mouseListener = new CanvasMouseListener(paintCanvas, appState, shapeRepo);
 		paintCanvas.addMouseListener(mouseListener);
 
 		//--------------------------------------------------

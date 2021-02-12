@@ -1,19 +1,22 @@
 package application.commands;
 
 import application.shapes.IShape;
-import application.shapes.ShapeRepository;
+import application.observers.ShapeRepository;
 import model.interfaces.IApplicationState;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CmdMoveShape implements ICommand, IUndoable {
     // Data
+    private ShapeRepository shapeRepo;
     private int deltaX;
     private int deltaY;
-    private ArrayList<IShape> localMoveShapeList;
+    private List<IShape> localMoveShapeList;
 
     // Constructors
-    public CmdMoveShape(IApplicationState _appState, application.Point _pressedPoint, application.Point _releasedPoint) {
+    public CmdMoveShape(IApplicationState _appState, ShapeRepository _shapeRepo, application.Point _pressedPoint, application.Point _releasedPoint) {
+        this.shapeRepo = _shapeRepo;
         this.deltaX = _releasedPoint.getX() - _pressedPoint.getX();
         this.deltaY = _releasedPoint.getY() - _pressedPoint.getY();
         this.localMoveShapeList = new ArrayList<>();
@@ -24,7 +27,7 @@ public class CmdMoveShape implements ICommand, IUndoable {
     public void execute() {
         System.out.println("---> execute() CmdMoveShape");
 
-        ShapeRepository.updateMainShapeListForMove(this.deltaX, this.deltaY);
+        this.shapeRepo.updateMainShapeListForMove(this.deltaX, this.deltaY);
 
         this.setLocalMoveShapeList(ShapeRepository.getSelectedShapeList());
 
@@ -38,7 +41,7 @@ public class CmdMoveShape implements ICommand, IUndoable {
             s.translateAllPoint(-this.deltaX, -this.deltaY);
         }
 
-        ShapeRepository.reDrawAll();
+        this.shapeRepo.reDrawAllShapes();
     }
 
     @Override
@@ -48,10 +51,10 @@ public class CmdMoveShape implements ICommand, IUndoable {
             s.translateAllPoint(this.deltaX, this.deltaY);
         }
 
-        ShapeRepository.reDrawAll();
+        this.shapeRepo.reDrawAllShapes();
     }
 
-    public void setLocalMoveShapeList(ArrayList<IShape> _shapeList) {
+    public void setLocalMoveShapeList(List<IShape> _shapeList) {
         this.localMoveShapeList.clear();
 
         for (IShape s : _shapeList) {

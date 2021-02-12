@@ -1,16 +1,19 @@
 package application.commands;
 
 import application.Point;
-import application.shapes.ShapeRepository;
+import application.observers.ShapeRepository;
 import model.interfaces.IApplicationState;
 
 public class CmdSelectShape implements ICommand {
     // Data
+    private ShapeRepository shapeRepo;
     private Point topLeftCollision;
     private Point bottomRightCollision;
 
     // Constructors
-    public CmdSelectShape(IApplicationState _appState, application.Point _pressedPoint, application.Point _releasedPoint) {
+    public CmdSelectShape(IApplicationState _appState, ShapeRepository _shapeRepo, application.Point _pressedPoint, application.Point _releasedPoint) {
+        this.shapeRepo = _shapeRepo;
+
         this.topLeftCollision = new Point(0, 0);
         this.bottomRightCollision = new Point(0, 0);
 
@@ -36,6 +39,6 @@ public class CmdSelectShape implements ICommand {
     public void execute() {
         System.out.println("---> execute() CmdSelectShape");
 
-        ShapeRepository.updateSelectedShapeListForCollision(this.topLeftCollision, this.bottomRightCollision);
+        this.shapeRepo.updateSelectedShapeListForCollision(this.topLeftCollision, this.bottomRightCollision);
     }
 }
