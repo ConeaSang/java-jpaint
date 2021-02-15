@@ -25,7 +25,7 @@ public class Main {
 
 		// Setup Observers
 		ShapeRepository shapeRepo = new ShapeRepository();
-		ShapeDrawer shapeDrawerObserver = new ShapeDrawer(paintCanvas);
+		ShapeDrawer shapeDrawerObserver = new ShapeDrawer(paintCanvas, shapeRepo);
 		shapeRepo.registerObserver(shapeDrawerObserver);
 
 		// Setup Mouse Listeners

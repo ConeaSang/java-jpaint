@@ -9,10 +9,12 @@ import java.awt.Color;
 public class ShapeDrawer implements IObserver {
     // Data
     private PaintCanvasBase paintCanvas;
+    private ShapeRepository shapeRepo;
 
     // Constructors
-    public ShapeDrawer(PaintCanvasBase _paintCanvas) {
+    public ShapeDrawer(PaintCanvasBase _paintCanvas, ShapeRepository _shapeRepo) {
         this.paintCanvas = _paintCanvas;
+        this.shapeRepo = _shapeRepo;
     }
 
     // Methods
@@ -27,7 +29,7 @@ public class ShapeDrawer implements IObserver {
         g2D.setColor(Color.WHITE);
         g2D.fillRect(0, 0, this.paintCanvas.getWidth(), this.paintCanvas.getHeight());
 
-        for (IShape s : ShapeRepository.getMainShapeList()) {
+        for (IShape s : this.shapeRepo.getMainShapeList()) {
             s.draw(this.paintCanvas.getGraphics2D());
         }
     }

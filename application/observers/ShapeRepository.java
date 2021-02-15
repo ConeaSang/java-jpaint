@@ -8,8 +8,8 @@ import java.util.List;
 
 public class ShapeRepository implements ISubject {
     // Data
-    private static List<IShape> mainShapeList = new ArrayList<>();
-    private static List<IShape> selectedShapeList = new ArrayList<>();
+    private List<IShape> mainShapeList = new ArrayList<>();
+    private List<IShape> selectedShapeList = new ArrayList<>();
 
     private List<IObserver> observerList = new ArrayList<>();
 
@@ -48,32 +48,28 @@ public class ShapeRepository implements ISubject {
         System.out.println("remove() - mainShapeList size: " + this.mainShapeList.size());
     }
 
-    // static
-    public static void setMainShapeList(List<IShape> _shapeList) {
-        ShapeRepository.mainShapeList.clear();
+    public void setMainShapeList(List<IShape> _shapeList) {
+        this.mainShapeList.clear();
 
         for (IShape s : _shapeList) {
-            ShapeRepository.mainShapeList.add(s);
+            this.mainShapeList.add(s);
         }
     }
 
-    // static
-    public static List<IShape> getMainShapeList() {
-        return ShapeRepository.mainShapeList;
+    public List<IShape> getMainShapeList() {
+        return this.mainShapeList;
     }
 
-    // static
-    public static void setSelectedShapeList(List<IShape> _shapeList) {
-        ShapeRepository.selectedShapeList.clear();
+    public void setSelectedShapeList(List<IShape> _shapeList) {
+        this.selectedShapeList.clear();
 
         for (IShape s : _shapeList) {
-            ShapeRepository.selectedShapeList.add(s);
+            this.selectedShapeList.add(s);
         }
     }
 
-    // static
-    public static List<IShape> getSelectedShapeList() {
-        return ShapeRepository.selectedShapeList;
+    public List<IShape> getSelectedShapeList() {
+        return this.selectedShapeList;
     }
 
     public void updateMainShapeListForMove(int _deltaX, int _deltaY) {

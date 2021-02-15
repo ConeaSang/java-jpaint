@@ -29,7 +29,7 @@ public class CmdMoveShape implements ICommand, IUndoable {
 
         this.shapeRepo.updateMainShapeListForMove(this.deltaX, this.deltaY);
 
-        this.setLocalMoveShapeList(ShapeRepository.getSelectedShapeList());
+        this.setLocalMoveShapeList(shapeRepo.getSelectedShapeList());
 
         CommandHistory.add(this);
     }
