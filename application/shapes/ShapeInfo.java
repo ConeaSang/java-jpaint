@@ -10,7 +10,6 @@ import java.awt.Color;
 
 public class ShapeInfo {
     // Data
-    //private PaintCanvasBase paintCanvas;
     private ShapeType shapeType;
     private Color primaryColor;
     private Color secondaryColor;
@@ -19,17 +18,8 @@ public class ShapeInfo {
     private Point pressedPoint;
     private Point releasedPoint;
 
-    //private Point pointTopLeft;
-    //private int width;
-    //private int height;
-
     // Constructors
     public ShapeInfo() {
-        //this.paintCanvas = _paintCanvas;
-
-        //this.pointTopLeft = new Point(0,0);
-        //this.width = 0;
-        //this.height = 0;
     }
 
     // Methods
@@ -63,26 +53,6 @@ public class ShapeInfo {
         return this;
     }
 
-//    public ShapeInfo setPointTopLeft(Point _pointTopLeft)
-//    {
-//        this.pointTopLeft = _pointTopLeft;
-//        return this;
-//    }
-//
-//    public ShapeInfo setWidth(int _width)
-//    {
-//        this.width = _width;
-//        return this;
-//    }
-//
-//    public ShapeInfo setHeight(int _height)
-//    {
-//        this.height = _height;
-//        return this;
-//    }
-
-    //public PaintCanvasBase getPaintCanvas() { return this.paintCanvas; }
-
     public ShapeType getShapeType()
     {
         return this.shapeType;
@@ -97,19 +67,4 @@ public class ShapeInfo {
     public Point getPressedPoint() { return this.pressedPoint; }
 
     public Point getReleasedPoint() { return this.releasedPoint; }
-
-//    public Point getPointTopLeft()
-//    {
-//        return this.pointTopLeft;
-//    }
-//
-//    public int getWidth()
-//    {
-//        return this.width;
-//    }
-//
-//    public int getHeight()
-//    {
-//        return this.height;
-//    }
 }

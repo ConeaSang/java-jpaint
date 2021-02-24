@@ -11,15 +11,15 @@ import java.awt.Color;
 
 public abstract class Shape implements IShape {
     // Data
-    //protected PaintCanvasBase paintCanvas;
-    //protected Graphics2D graphics2D;
-    protected ShapeType shapeType;
-    protected Color primaryColor;
-    protected Color secondaryColor;
-    protected ShapeShadingType shadingType;
+    //protected ShapeType shapeType;
+    //protected Color primaryColor;
+    //protected Color secondaryColor;
+    //protected ShapeShadingType shadingType;
 
-    protected Point pressedPoint;
-    protected Point releasedPoint;
+    //protected Point pressedPoint;
+    //protected Point releasedPoint;
+
+    protected ShapeInfo shapeInfo;
 
     protected Point topLeftPoint;
     protected Point bottomRightPoint;

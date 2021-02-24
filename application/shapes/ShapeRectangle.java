@@ -2,7 +2,6 @@ package application.shapes;
 
 import application.Point;
 import model.ShapeShadingType;
-import view.interfaces.PaintCanvasBase;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
@@ -12,79 +11,62 @@ public class ShapeRectangle extends Shape {
 
     // Constructors
     public ShapeRectangle(ShapeInfo _shapeInfo) {
-        //this.paintCanvas = _shapeInfo.getPaintCanvas();
-        //this.graphics2D = _shapeInfo.getPaintCanvas().getGraphics2D();
-        this.shapeType = _shapeInfo.getShapeType();
-        this.primaryColor = _shapeInfo.getPrimaryColor();
-        this.secondaryColor = _shapeInfo.getSecondaryColor();
-        this.shadingType = _shapeInfo.getShadingType();
+        this.shapeInfo = new ShapeInfo();
 
-        //this.pressedPoint = _shapeInfo.getPressedPoint();
-        this.pressedPoint = new Point(_shapeInfo.getPressedPoint());
-        //this.releasedPoint = _shapeInfo.getReleasedPoint();
-        this.releasedPoint = new Point(_shapeInfo.getReleasedPoint());
+        this.shapeInfo.setShapeType(_shapeInfo.getShapeType());
+        this.shapeInfo.setPrimaryColor(_shapeInfo.getPrimaryColor());
+        this.shapeInfo.setSecondaryColor(_shapeInfo.getSecondaryColor());
+        this.shapeInfo.setShadingType(_shapeInfo.getShadingType());
+
+        this.shapeInfo.setPressedPoint(new Point(_shapeInfo.getPressedPoint()));
+        this.shapeInfo.setReleasedPoint(new Point(_shapeInfo.getReleasedPoint()));
 
         // Find topLeftPoint & bottomRightPoint
         this.topLeftPoint = new Point(0, 0);
         this.bottomRightPoint = new Point(0, 0);
 
-        if (this.pressedPoint.getX() < this.releasedPoint.getX()) {
-            this.topLeftPoint.setX(this.pressedPoint.getX());
-            this.bottomRightPoint.setX(this.releasedPoint.getX());
+        if (this.shapeInfo.getPressedPoint().getX() < this.shapeInfo.getReleasedPoint().getX()) {
+            this.topLeftPoint.setX(this.shapeInfo.getPressedPoint().getX());
+            this.bottomRightPoint.setX(this.shapeInfo.getReleasedPoint().getX());
         } else {
-            this.topLeftPoint.setX(this.releasedPoint.getX());
-            this.bottomRightPoint.setX(this.pressedPoint.getX());
+            this.topLeftPoint.setX(this.shapeInfo.getReleasedPoint().getX());
+            this.bottomRightPoint.setX(this.shapeInfo.getPressedPoint().getX());
         }
 
-        if (this.pressedPoint.getY() < this.releasedPoint.getY()) {
-            this.topLeftPoint.setY(this.pressedPoint.getY());
-            this.bottomRightPoint.setY(this.releasedPoint.getY());
+        if (this.shapeInfo.getPressedPoint().getY() < this.shapeInfo.getReleasedPoint().getY()) {
+            this.topLeftPoint.setY(this.shapeInfo.getPressedPoint().getY());
+            this.bottomRightPoint.setY(this.shapeInfo.getReleasedPoint().getY());
         } else {
-            this.topLeftPoint.setY(this.releasedPoint.getY());
-            this.bottomRightPoint.setY(this.pressedPoint.getY());
+            this.topLeftPoint.setY(this.shapeInfo.getReleasedPoint().getY());
+            this.bottomRightPoint.setY(this.shapeInfo.getPressedPoint().getY());
         }
     }
 
     // Methods
     @Override
     public void draw(Graphics2D _g2D) {
-        int width = Math.abs(this.releasedPoint.getX() - this.pressedPoint.getX());
-        int height = Math.abs(this.releasedPoint.getY() - this.pressedPoint.getY());
-
-        // getGraphics2D
-        //Graphics2D graphics2D = this.paintCanvas.getGraphics2D();
+        int width = Math.abs(this.shapeInfo.getReleasedPoint().getX() - this.shapeInfo.getPressedPoint().getX());
+        int height = Math.abs(this.shapeInfo.getReleasedPoint().getY() - this.shapeInfo.getPressedPoint().getY());
 
         // ShadingType
-        if (this.shadingType == ShapeShadingType.OUTLINE) {
+        if (this.shapeInfo.getShadingType() == ShapeShadingType.OUTLINE) {
             _g2D.setStroke(new BasicStroke(5));
-            _g2D.setColor(this.primaryColor);
+            _g2D.setColor(this.shapeInfo.getPrimaryColor());
             _g2D.drawRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
 
-        } else if (this.shadingType == ShapeShadingType.FILLED_IN) {
-            _g2D.setColor(this.primaryColor);
+        } else if (this.shapeInfo.getShadingType() == ShapeShadingType.FILLED_IN) {
+            _g2D.setColor(this.shapeInfo.getPrimaryColor());
             _g2D.fillRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
             //System.out.println("fillRect");
 
         } else {
-            _g2D.setColor(this.primaryColor);
+            _g2D.setColor(this.shapeInfo.getPrimaryColor());
             _g2D.fillRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
 
             _g2D.setStroke(new BasicStroke(5));
-            _g2D.setColor(this.secondaryColor);
+            _g2D.setColor(this.shapeInfo.getSecondaryColor());
             _g2D.drawRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
         }
-
-//        // Only Green Rectangle for now
-//        Graphics2D graphics2D = this.paintCanvas.getGraphics2D();
-//        graphics2D.setColor(Color.GREEN);
-//        graphics2D.fillRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), this.width, this.height);
-
-        //--------------------------------------------------
-        // Testing
-
-        //graphics2D.fillPolygon();
-
-        //--------------------------------------------------
     }
 
     @Override
@@ -99,14 +81,9 @@ public class ShapeRectangle extends Shape {
 
     @Override
     public void translateAllPoint(int _deltaX, int _deltaY) {
-        this.pressedPoint.setXY(this.pressedPoint.getX() + _deltaX, this.pressedPoint.getY() + _deltaY);
-        this.releasedPoint.setXY(this.releasedPoint.getX() + _deltaX, this.releasedPoint.getY() + _deltaY);
+        this.shapeInfo.getPressedPoint().setXY(this.shapeInfo.getPressedPoint().getX() + _deltaX, this.shapeInfo.getPressedPoint().getY() + _deltaY);
+        this.shapeInfo.getReleasedPoint().setXY(this.shapeInfo.getReleasedPoint().getX() + _deltaX, this.shapeInfo.getReleasedPoint().getY() + _deltaY);
         this.topLeftPoint.setXY(this.topLeftPoint.getX() + _deltaX, this.topLeftPoint.getY() + _deltaY);
         this.bottomRightPoint.setXY(this.bottomRightPoint.getX() + _deltaX, this.bottomRightPoint.getY() + _deltaY);
     }
-
-    //    @Override
-//    public PaintCanvasBase getPaintCanvas() {
-//        return this.paintCanvas;
-//    }
 }
