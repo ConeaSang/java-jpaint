@@ -12,15 +12,15 @@ import view.interfaces.PaintCanvasBase;
 
 public class CmdCreateShape implements ICommand, IUndoable {
     // Data
-    private ShapeInfo shapeInfo;
     private ShapeRepository shapeRepo;
+    private ShapeInfo shapeInfo;
     private IShape shape;
 
     // Constructors
     public CmdCreateShape(IApplicationState _appState, ShapeRepository _shapeRepo, application.Point _pressedPoint, application.Point _releasedPoint) {
-        this.shapeInfo = new ShapeInfo();
-
         this.shapeRepo = _shapeRepo;
+
+        this.shapeInfo = new ShapeInfo();
 
         // Set values
         this.shapeInfo.setShapeType(_appState.getActiveShapeType())
@@ -46,6 +46,7 @@ public class CmdCreateShape implements ICommand, IUndoable {
         }
 
         this.shapeRepo.add(this.shape);
+
         CommandHistory.add(this);
     }
 

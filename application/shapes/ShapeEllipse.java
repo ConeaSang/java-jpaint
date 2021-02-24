@@ -71,6 +71,11 @@ public class ShapeEllipse extends Shape {
     }
 
     @Override
+    public ShapeInfo getShapeInfo() {
+        return this.shapeInfo;
+    }
+
+    @Override
     public Point getTopLeftPoint() {
         return this.topLeftPoint;
     }

@@ -9,25 +9,23 @@ import model.ShapeType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CmdCopyShape implements ICommand {
+public class CmdPasteShape implements ICommand, IUndoable {
     // Data
     private final ShapeRepository shapeRepo;
-    private final int offset;
+    private final List<IShape> localPasteShapeList;
 
     // Constructors
-    public CmdCopyShape(ShapeRepository _shapeRepo) {
+    public CmdPasteShape(ShapeRepository _shapeRepo) {
         this.shapeRepo = _shapeRepo;
-        this.offset = 60;
+        this.localPasteShapeList = new ArrayList<>();
     }
 
     // Methods
     @Override
     public void execute() {
-        System.out.println("---> execute() CmdCopyShape");
+        System.out.println("---> execute() CmdPasteShape");
 
-        List<IShape> tmpList = new ArrayList<>();
-
-        for (IShape s : this.shapeRepo.getSelectedShapeList()) {
+        for (IShape s : this.shapeRepo.getClipboardShapeList()) {
             ShapeInfo shapeInfo = new ShapeInfo(s.getShapeInfo());
             IShape shape;
 
@@ -39,14 +37,21 @@ public class CmdCopyShape implements ICommand {
                 shape = ShapeFactory.createShapeTriangle(shapeInfo);
             }
 
-            shape.translateAllPoint(this.offset, this.offset);
-
-            tmpList.add(shape);
+            this.localPasteShapeList.add(shape);
         }
 
-        this.shapeRepo.setClipboardShapeList(tmpList);
+        this.shapeRepo.add(this.localPasteShapeList);
 
-        System.out.print("____________ - ");
-        this.shapeRepo.printSizeOfAllList();
+        CommandHistory.add(this);
+    }
+
+    @Override
+    public void undo() {
+        this.shapeRepo.remove(this.localPasteShapeList);
+    }
+
+    @Override
+    public void redo() {
+        this.shapeRepo.add(this.localPasteShapeList);
     }
 }

@@ -22,6 +22,16 @@ public class ShapeInfo {
     public ShapeInfo() {
     }
 
+    public ShapeInfo(ShapeInfo _shapeInfo) {
+        this.shapeType = _shapeInfo.getShapeType();
+        this.primaryColor = _shapeInfo.getPrimaryColor();
+        this.secondaryColor = _shapeInfo.getSecondaryColor();
+        this.shadingType = _shapeInfo.getShadingType();
+
+        this.pressedPoint = new Point(_shapeInfo.getPressedPoint());
+        this.releasedPoint = new Point(_shapeInfo.getReleasedPoint());
+    }
+
     // Methods
     public ShapeInfo setShapeType(ShapeType _shapeType) {
         this.shapeType = _shapeType;
