@@ -6,31 +6,31 @@ import model.interfaces.IApplicationState;
 
 public class CmdSelectShape implements ICommand {
     // Data
-    private ShapeRepository shapeRepo;
-    private Point topLeftCollision;
-    private Point bottomRightCollision;
+    private final ShapeRepository m_shapeRepo;
+    private final Point m_topLeftCollision;
+    private final Point m_bottomRightCollision;
 
     // Constructors
-    public CmdSelectShape(IApplicationState _appState, ShapeRepository _shapeRepo, application.Point _pressedPoint, application.Point _releasedPoint) {
-        this.shapeRepo = _shapeRepo;
+    public CmdSelectShape(IApplicationState appState, ShapeRepository shapeRepo, application.Point pressedPoint, application.Point releasedPoint) {
+        this.m_shapeRepo = shapeRepo;
 
-        this.topLeftCollision = new Point(0, 0);
-        this.bottomRightCollision = new Point(0, 0);
+        this.m_topLeftCollision = new Point(0, 0);
+        this.m_bottomRightCollision = new Point(0, 0);
 
-        if (_pressedPoint.getX() < _releasedPoint.getX()) {
-            this.topLeftCollision.setX(_pressedPoint.getX());
-            this.bottomRightCollision.setX(_releasedPoint.getX());
+        if (pressedPoint.getX() < releasedPoint.getX()) {
+            this.m_topLeftCollision.setX(pressedPoint.getX());
+            this.m_bottomRightCollision.setX(releasedPoint.getX());
         } else {
-            this.topLeftCollision.setX(_releasedPoint.getX());
-            this.bottomRightCollision.setX(_pressedPoint.getX());
+            this.m_topLeftCollision.setX(releasedPoint.getX());
+            this.m_bottomRightCollision.setX(pressedPoint.getX());
         }
 
-        if (_pressedPoint.getY() < _releasedPoint.getY()) {
-            this.topLeftCollision.setY(_pressedPoint.getY());
-            this.bottomRightCollision.setY(_releasedPoint.getY());
+        if (pressedPoint.getY() < releasedPoint.getY()) {
+            this.m_topLeftCollision.setY(pressedPoint.getY());
+            this.m_bottomRightCollision.setY(releasedPoint.getY());
         } else {
-            this.topLeftCollision.setY(_releasedPoint.getY());
-            this.bottomRightCollision.setY(_pressedPoint.getY());
+            this.m_topLeftCollision.setY(releasedPoint.getY());
+            this.m_bottomRightCollision.setY(pressedPoint.getY());
         }
     }
 
@@ -39,6 +39,6 @@ public class CmdSelectShape implements ICommand {
     public void execute() {
         System.out.println("---> execute() CmdSelectShape");
 
-        this.shapeRepo.updateSelectedShapeListForCollision(this.topLeftCollision, this.bottomRightCollision);
+        this.m_shapeRepo.updateSelectedShapeListForCollision(this.m_topLeftCollision, this.m_bottomRightCollision);
     }
 }

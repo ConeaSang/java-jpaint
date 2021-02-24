@@ -8,27 +8,26 @@ import application.shapes.ShapeFactory;
 import application.shapes.ShapeInfo;
 import model.ShapeType;
 import model.interfaces.IApplicationState;
-import view.interfaces.PaintCanvasBase;
 
 public class CmdCreateShape implements ICommand, IUndoable {
     // Data
-    private ShapeRepository shapeRepo;
-    private ShapeInfo shapeInfo;
-    private IShape shape;
+    private final ShapeRepository m_shapeRepo;
+    private final ShapeInfo m_shapeInfo;
+    private IShape m_shape;
 
     // Constructors
-    public CmdCreateShape(IApplicationState _appState, ShapeRepository _shapeRepo, application.Point _pressedPoint, application.Point _releasedPoint) {
-        this.shapeRepo = _shapeRepo;
+    public CmdCreateShape(IApplicationState appState, ShapeRepository shapeRepo, application.Point pressedPoint, application.Point releasedPoint) {
+        this.m_shapeRepo = shapeRepo;
 
-        this.shapeInfo = new ShapeInfo();
+        this.m_shapeInfo = new ShapeInfo();
 
         // Set values
-        this.shapeInfo.setShapeType(_appState.getActiveShapeType())
-                      .setPrimaryColor(ColorTranslation.getColor(_appState.getActivePrimaryColor()))
-                      .setSecondaryColor(ColorTranslation.getColor(_appState.getActiveSecondaryColor()))
-                      .setShadingType(_appState.getActiveShapeShadingType())
-                      .setPressedPoint(new Point(_pressedPoint))
-                      .setReleasedPoint(new Point(_releasedPoint));
+        this.m_shapeInfo.setShapeType(appState.getActiveShapeType())
+                      .setPrimaryColor(ColorTranslation.getColor(appState.getActivePrimaryColor()))
+                      .setSecondaryColor(ColorTranslation.getColor(appState.getActiveSecondaryColor()))
+                      .setShadingType(appState.getActiveShapeShadingType())
+                      .setPressedPoint(new Point(pressedPoint))
+                      .setReleasedPoint(new Point(releasedPoint));
     }
 
     // Methods
@@ -37,26 +36,26 @@ public class CmdCreateShape implements ICommand, IUndoable {
         System.out.println("---> execute() CmdCreateShape");
 
         // Call the ShapeFactory
-        if (this.shapeInfo.getShapeType() == ShapeType.ELLIPSE) {
-            this.shape = ShapeFactory.createShapeEllipse(this.shapeInfo);
-        } else if (this.shapeInfo.getShapeType() == ShapeType.RECTANGLE) {
-            this.shape = ShapeFactory.createShapeRectangle(this.shapeInfo);
+        if (this.m_shapeInfo.getShapeType() == ShapeType.ELLIPSE) {
+            this.m_shape = ShapeFactory.createShapeEllipse(this.m_shapeInfo);
+        } else if (this.m_shapeInfo.getShapeType() == ShapeType.RECTANGLE) {
+            this.m_shape = ShapeFactory.createShapeRectangle(this.m_shapeInfo);
         } else {
-            this.shape = ShapeFactory.createShapeTriangle(this.shapeInfo);
+            this.m_shape = ShapeFactory.createShapeTriangle(this.m_shapeInfo);
         }
 
-        this.shapeRepo.add(this.shape);
+        this.m_shapeRepo.add(this.m_shape);
 
         CommandHistory.add(this);
     }
 
     @Override
     public void undo() {
-        this.shapeRepo.remove(this.shape);
+        this.m_shapeRepo.remove(this.m_shape);
     }
 
     @Override
     public void redo() {
-        this.shapeRepo.add(this.shape);
+        this.m_shapeRepo.add(this.m_shape);
     }
 }

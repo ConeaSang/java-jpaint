@@ -2,39 +2,39 @@ package application;
 
 public class Point {
     // Data
-    private int x;
-    private int y;
+    private int m_x;
+    private int m_y;
 
     // Constructors
-    public Point(int _x, int _y) {
-        this.x = _x;
-        this.y = _y;
+    public Point(int x, int y) {
+        this.m_x = x;
+        this.m_y = y;
     }
 
     public Point(Point p) {
-        this.x = p.x;
-        this.y = p.y;
+        this.m_x = p.m_x;
+        this.m_y = p.m_y;
     }
 
     // Methods
-    public void setX(int _x) {
-        this.x = _x;
+    public void setX(int x) {
+        this.m_x = x;
     }
 
-    public void setY(int _y) {
-        this.y = _y;
+    public void setY(int y) {
+        this.m_y = y;
     }
 
-    public void setXY(int _x, int _y) {
-        this.x = _x;
-        this.y = _y;
+    public void setXY(int x, int y) {
+        this.m_x = x;
+        this.m_y = y;
     }
 
     public int getX() {
-        return this.x;
+        return this.m_x;
     }
 
     public int getY() {
-        return this.y;
+        return this.m_y;
     }
 }

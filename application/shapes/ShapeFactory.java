@@ -6,15 +6,15 @@ public class ShapeFactory {
     }
 
     // Methods
-    public static IShape createShapeEllipse(ShapeInfo _shapeInfo) {
-        return new ShapeEllipse(_shapeInfo);
+    public static IShape createShapeEllipse(ShapeInfo shapeInfo) {
+        return new ShapeEllipse(shapeInfo);
     }
 
-    public static IShape createShapeRectangle(ShapeInfo _shapeInfo) {
-        return new ShapeRectangle(_shapeInfo);
+    public static IShape createShapeRectangle(ShapeInfo shapeInfo) {
+        return new ShapeRectangle(shapeInfo);
     }
 
-    public static IShape createShapeTriangle(ShapeInfo _shapeInfo) {
-        return new ShapeTriangle(_shapeInfo);
+    public static IShape createShapeTriangle(ShapeInfo shapeInfo) {
+        return new ShapeTriangle(shapeInfo);
     }
 }

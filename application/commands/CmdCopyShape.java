@@ -11,13 +11,13 @@ import java.util.List;
 
 public class CmdCopyShape implements ICommand {
     // Data
-    private final ShapeRepository shapeRepo;
-    private final int offset;
+    private final ShapeRepository m_shapeRepo;
+    private final int m_offset;
 
     // Constructors
-    public CmdCopyShape(ShapeRepository _shapeRepo) {
-        this.shapeRepo = _shapeRepo;
-        this.offset = 60;
+    public CmdCopyShape(ShapeRepository shapeRepo) {
+        this.m_shapeRepo = shapeRepo;
+        this.m_offset = 60;
     }
 
     // Methods
@@ -27,7 +27,7 @@ public class CmdCopyShape implements ICommand {
 
         List<IShape> tmpList = new ArrayList<>();
 
-        for (IShape s : this.shapeRepo.getSelectedShapeList()) {
+        for (IShape s : this.m_shapeRepo.getSelectedShapeList()) {
             ShapeInfo shapeInfo = new ShapeInfo(s.getShapeInfo());
             IShape shape;
 
@@ -39,14 +39,14 @@ public class CmdCopyShape implements ICommand {
                 shape = ShapeFactory.createShapeTriangle(shapeInfo);
             }
 
-            shape.translateAllPoint(this.offset, this.offset);
+            shape.translateAllPoint(this.m_offset, this.m_offset);
 
             tmpList.add(shape);
         }
 
-        this.shapeRepo.setClipboardShapeList(tmpList);
+        this.m_shapeRepo.setClipboardShapeList(tmpList);
 
         System.out.print("____________ - ");
-        this.shapeRepo.printSizeOfAllList();
+        this.m_shapeRepo.printSizeOfAllList();
     }
 }

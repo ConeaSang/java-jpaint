@@ -5,5 +5,5 @@ import application.observers.ShapeRepository;
 public interface IJPaintController {
     void setup();
 
-    void setShapeRepo(ShapeRepository _shapeRepo);
+    void setShapeRepo(ShapeRepository shapeRepo);
 }

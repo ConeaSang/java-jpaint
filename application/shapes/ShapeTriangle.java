@@ -9,18 +9,8 @@ public class ShapeTriangle extends Shape {
     // Data
 
     // Constructors
-    public ShapeTriangle(ShapeInfo _shapeInfo) {
-        //this.shapeInfo = new ShapeInfo();
-
-        //this.shapeInfo.setShapeType(_shapeInfo.getShapeType());
-        //this.shapeInfo.setPrimaryColor(_shapeInfo.getPrimaryColor());
-        //this.shapeInfo.setSecondaryColor(_shapeInfo.getSecondaryColor());
-        //this.shapeInfo.setShadingType(_shapeInfo.getShadingType());
-
-        //this.shapeInfo.setPressedPoint(new Point(_shapeInfo.getPressedPoint()));
-        //this.shapeInfo.setReleasedPoint(new Point(_shapeInfo.getReleasedPoint()));
-
-        this.shapeInfo = _shapeInfo;
+    public ShapeTriangle(ShapeInfo shapeInfo) {
+        this.shapeInfo = shapeInfo;
 
         // Find topLeftPoint & bottomRightPoint
         this.topLeftPoint = new Point(0, 0);
@@ -45,7 +35,7 @@ public class ShapeTriangle extends Shape {
 
     // Methods
     @Override
-    public void draw(Graphics2D _g2D) {
+    public void draw(Graphics2D g2D) {
         int[] xArray = new int[3];
         int[] yArray = new int[3];
 
@@ -59,22 +49,22 @@ public class ShapeTriangle extends Shape {
 
         // ShadingType
         if (this.shapeInfo.getShadingType() == ShapeShadingType.OUTLINE) {
-            _g2D.setStroke(new BasicStroke(5));
-            _g2D.setColor(this.shapeInfo.getPrimaryColor());
-            _g2D.drawPolygon(xArray, yArray, 3);
+            g2D.setStroke(new BasicStroke(5));
+            g2D.setColor(this.shapeInfo.getPrimaryColor());
+            g2D.drawPolygon(xArray, yArray, 3);
 
         } else if (this.shapeInfo.getShadingType() == ShapeShadingType.FILLED_IN) {
-            _g2D.setColor(this.shapeInfo.getPrimaryColor());
-            _g2D.fillPolygon(xArray, yArray, 3);
+            g2D.setColor(this.shapeInfo.getPrimaryColor());
+            g2D.fillPolygon(xArray, yArray, 3);
             //System.out.println("fillPolygon");
 
         } else {
-            _g2D.setColor(this.shapeInfo.getPrimaryColor());
-            _g2D.fillPolygon(xArray, yArray, 3);
+            g2D.setColor(this.shapeInfo.getPrimaryColor());
+            g2D.fillPolygon(xArray, yArray, 3);
 
-            _g2D.setStroke(new BasicStroke(5));
-            _g2D.setColor(this.shapeInfo.getSecondaryColor());
-            _g2D.drawPolygon(xArray, yArray, 3);
+            g2D.setStroke(new BasicStroke(5));
+            g2D.setColor(this.shapeInfo.getSecondaryColor());
+            g2D.drawPolygon(xArray, yArray, 3);
         }
     }
 
@@ -94,10 +84,10 @@ public class ShapeTriangle extends Shape {
     }
 
     @Override
-    public void translateAllPoint(int _deltaX, int _deltaY) {
-        this.shapeInfo.getPressedPoint().setXY(this.shapeInfo.getPressedPoint().getX() + _deltaX, this.shapeInfo.getPressedPoint().getY() + _deltaY);
-        this.shapeInfo.getReleasedPoint().setXY(this.shapeInfo.getReleasedPoint().getX() + _deltaX, this.shapeInfo.getReleasedPoint().getY() + _deltaY);
-        this.topLeftPoint.setXY(this.topLeftPoint.getX() + _deltaX, this.topLeftPoint.getY() + _deltaY);
-        this.bottomRightPoint.setXY(this.bottomRightPoint.getX() + _deltaX, this.bottomRightPoint.getY() + _deltaY);
+    public void translateAllPoint(int deltaX, int deltaY) {
+        this.shapeInfo.getPressedPoint().setXY(this.shapeInfo.getPressedPoint().getX() + deltaX, this.shapeInfo.getPressedPoint().getY() + deltaY);
+        this.shapeInfo.getReleasedPoint().setXY(this.shapeInfo.getReleasedPoint().getX() + deltaX, this.shapeInfo.getReleasedPoint().getY() + deltaY);
+        this.topLeftPoint.setXY(this.topLeftPoint.getX() + deltaX, this.topLeftPoint.getY() + deltaY);
+        this.bottomRightPoint.setXY(this.bottomRightPoint.getX() + deltaX, this.bottomRightPoint.getY() + deltaY);
     }
 }

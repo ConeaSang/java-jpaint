@@ -2,20 +2,17 @@ package application.observers;
 
 import application.Point;
 import application.shapes.IShape;
-import application.shapes.ShapeFactory;
-import application.shapes.ShapeInfo;
-import model.ShapeType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShapeRepository implements ISubject {
     // Data
-    private final List<IShape> mainShapeList = new ArrayList<>();
-    private final List<IShape> selectedShapeList = new ArrayList<>();
-    private final List<IShape> clipboardShapeList = new ArrayList<>();
+    private final List<IShape> m_mainShapeList = new ArrayList<>();
+    private final List<IShape> m_selectedShapeList = new ArrayList<>();
+    private final List<IShape> m_clipboardShapeList = new ArrayList<>();
 
-    private final List<IObserver> observerList = new ArrayList<>();
+    private final List<IObserver> m_observerList = new ArrayList<>();
 
     // Constructors
     public ShapeRepository() {
@@ -24,125 +21,113 @@ public class ShapeRepository implements ISubject {
     // Methods
     // public Methods
     @Override
-    public void registerObserver(IObserver _observer) {
-        this.observerList.add(_observer);
+    public void registerObserver(IObserver observer) {
+        this.m_observerList.add(observer);
     }
 
     @Override
-    public void removeObserver(IObserver _observer) {
-        this.observerList.remove(_observer);
+    public void removeObserver(IObserver observer) {
+        this.m_observerList.remove(observer);
     }
 
-    public void add(IShape _shape) {
-        this.mainShapeList.add(_shape);
+    public void add(IShape shape) {
+        this.m_mainShapeList.add(shape);
 
         this.reDrawAllShapes();
 
-        System.out.print("add(_shape) - ");
+        System.out.print("add(shape) - ");
         this.printSizeOfAllList();
     }
 
-    public void add(List<IShape> _shapeList) {
-        this.mainShapeList.addAll(_shapeList);
+    public void add(List<IShape> shapeList) {
+        this.m_mainShapeList.addAll(shapeList);
 
         this.reDrawAllShapes();
 
-        System.out.print("add(_list) - ");
+        System.out.print("add(list) - ");
         this.printSizeOfAllList();
     }
 
-    public void remove(IShape _shape) {
-        this.mainShapeList.remove(_shape);
+    public void remove(IShape shape) {
+        this.m_mainShapeList.remove(shape);
 
-        this.selectedShapeList.remove(_shape);
+        this.m_selectedShapeList.remove(shape);
 
         this.reDrawAllShapes();
 
-        System.out.print("remove(_shape) - ");
+        System.out.print("remove(shape) - ");
         this.printSizeOfAllList();
     }
 
-    public void remove(List<IShape> _shapeList) {
-        for (IShape s : _shapeList) {
+    public void remove(List<IShape> shapeList) {
+        for (IShape s : shapeList) {
 
-            this.mainShapeList.remove(s);
+            this.m_mainShapeList.remove(s);
 
-            this.selectedShapeList.remove(s);
+            this.m_selectedShapeList.remove(s);
         }
 
         this.reDrawAllShapes();
 
-        System.out.print("remove(_list) - ");
+        System.out.print("remove(list) - ");
         this.printSizeOfAllList();
     }
 
-    public void setMainShapeList(List<IShape> _shapeList) {
-        this.mainShapeList.clear();
+    public void setMainShapeList(List<IShape> shapeList) {
+        this.m_mainShapeList.clear();
 
-//        for (IShape s : _shapeList) {
-//            this.mainShapeList.add(s);
-//        }
-
-        this.mainShapeList.addAll(_shapeList);
+        this.m_mainShapeList.addAll(shapeList);
     }
 
     public List<IShape> getMainShapeList() {
-        return this.mainShapeList;
+        return this.m_mainShapeList;
     }
 
-    public void setSelectedShapeList(List<IShape> _shapeList) {
-        this.selectedShapeList.clear();
+    public void setSelectedShapeList(List<IShape> shapeList) {
+        this.m_selectedShapeList.clear();
 
-//        for (IShape s : _shapeList) {
-//            this.selectedShapeList.add(s);
-//        }
-
-        this.selectedShapeList.addAll(_shapeList);
+        this.m_selectedShapeList.addAll(shapeList);
     }
 
     public List<IShape> getSelectedShapeList() {
-        return this.selectedShapeList;
+        return this.m_selectedShapeList;
     }
 
-    public void setClipboardShapeList(List<IShape> _shapeList) {
-        this.clipboardShapeList.clear();
+    public void setClipboardShapeList(List<IShape> shapeList) {
+        this.m_clipboardShapeList.clear();
 
-//        for (IShape s : _shapeList) {
-//            this.clipboardShapeList.add(s);
-//        }
-
-        this.clipboardShapeList.addAll(_shapeList);
+        this.m_clipboardShapeList.addAll(shapeList);
     }
 
     public List<IShape> getClipboardShapeList() {
-        return this.clipboardShapeList;
+        return this.m_clipboardShapeList;
     }
 
-    public void moveSelectedShapes(int _deltaX, int _deltaY) {
+    public void moveSelectedShapes(int deltaX, int deltaY) {
         // This loop will also update the mainShapeList
-        for (IShape s : this.selectedShapeList) {
-            s.translateAllPoint(_deltaX, _deltaY);
+        for (IShape s : this.m_selectedShapeList) {
+            s.translateAllPoint(deltaX, deltaY);
         }
 
         reDrawAllShapes();
 
-        System.out.println("updateForMove() - mainShapeList size: " + this.mainShapeList.size());
-        System.out.println("updateForMove() - selectedShapeList size: " + this.selectedShapeList.size());
+        System.out.println("updateForMove() - mainShapeList size: " + this.m_mainShapeList.size());
+        System.out.println("updateForMove() - selectedShapeList size: " + this.m_selectedShapeList.size());
     }
 
-    public void updateSelectedShapeListForCollision(Point _topLeftCollision, Point _bottomRightCollision) {
-        this.selectedShapeList.clear();
+    public void updateSelectedShapeListForCollision(Point topLeftCollision, Point bottomRightCollision) {
+        this.m_selectedShapeList.clear();
 
-        for (IShape s : this.mainShapeList) {
-            if (this.checkCollision(s, _topLeftCollision, _bottomRightCollision)) {
+        for (IShape s : this.m_mainShapeList) {
+            if (this.checkCollision(s, topLeftCollision, bottomRightCollision)) {
                 System.out.println("Collided");
-                this.selectedShapeList.add(s);
+                this.m_selectedShapeList.add(s);
             } else {
                 System.out.println("Not collided");
             }
         }
 
-        System.out.println("updateForCollision() - selectedShapeList size: " + this.selectedShapeList.size());
+        System.out.println("updateForCollision() - selectedShapeList size: " + this.m_selectedShapeList.size());
     }
 
     public void reDrawAllShapes() {
@@ -150,20 +135,20 @@ public class ShapeRepository implements ISubject {
     }
 
     public void printSizeOfAllList() {
-        System.out.println("size: (" + this.mainShapeList.size() + ", " + this.selectedShapeList.size() + ", " + this.clipboardShapeList.size() + ")");
+        System.out.println("size: (" + this.m_mainShapeList.size() + ", " + this.m_selectedShapeList.size() + ", " + this.m_clipboardShapeList.size() + ")");
     }
 
     // private Methods
     private void notifyObservers() {
-        for (IObserver observer : this.observerList) {
+        for (IObserver observer : this.m_observerList) {
             observer.update();
         }
     }
 
-    private boolean checkCollision(IShape shape, Point _topLeftCollision, Point _bottomRightCollision) {
-        return shape.getTopLeftPoint().getX() < _bottomRightCollision.getX()
-                && shape.getBottomRightPoint().getX() > _topLeftCollision.getX()
-                && shape.getTopLeftPoint().getY() < _bottomRightCollision.getY()
-                && shape.getBottomRightPoint().getY() > _topLeftCollision.getY();
+    private boolean checkCollision(IShape shape, Point topLeftCollision, Point bottomRightCollision) {
+        return shape.getTopLeftPoint().getX() < bottomRightCollision.getX()
+                && shape.getBottomRightPoint().getX() > topLeftCollision.getX()
+                && shape.getTopLeftPoint().getY() < bottomRightCollision.getY()
+                && shape.getBottomRightPoint().getY() > topLeftCollision.getY();
     }
 }

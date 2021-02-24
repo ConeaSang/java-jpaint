@@ -8,25 +8,24 @@ import application.commands.CmdMoveShape;
 import application.commands.CmdSelectShape;
 import application.commands.ICommand;
 import application.observers.ShapeRepository;
-import model.MouseMode;
 import model.interfaces.IApplicationState;
 import view.interfaces.PaintCanvasBase;
 
 public class CanvasMouseListener implements MouseListener {
     // Data
-    private PaintCanvasBase paintCanvas;
-    private IApplicationState appState;
-    private ShapeRepository shapeRepo;
-    private Point pointPressed;
-    private Point pointReleased;
+    private final PaintCanvasBase m_paintCanvas;
+    private final IApplicationState m_appState;
+    private final ShapeRepository m_shapeRepo;
+    private final Point m_pointPressed;
+    private final Point m_pointReleased;
 
     // Constructors
-    public CanvasMouseListener(PaintCanvasBase _paintCanvas, IApplicationState _appState, ShapeRepository _shapeRepo) {
-        this.paintCanvas = _paintCanvas;
-        this.appState = _appState;
-        this.shapeRepo = _shapeRepo;
-        this.pointPressed = new Point(0,0);
-        this.pointReleased = new Point(0,0);
+    public CanvasMouseListener(PaintCanvasBase paintCanvas, IApplicationState appState, ShapeRepository shapeRepo) {
+        this.m_paintCanvas = paintCanvas;
+        this.m_appState = appState;
+        this.m_shapeRepo = shapeRepo;
+        this.m_pointPressed = new Point(0,0);
+        this.m_pointReleased = new Point(0,0);
     }
 
     // Methods
@@ -40,48 +39,48 @@ public class CanvasMouseListener implements MouseListener {
         System.out.println("--------------------------------------------------");
         System.out.println("mousePressed: " + e.getX() + ", " + e.getY());
 
-        this.pointPressed.setX(e.getX());
-        this.pointPressed.setY(e.getY());
+        this.m_pointPressed.setX(e.getX());
+        this.m_pointPressed.setY(e.getY());
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         System.out.println("mouseReleased: " + e.getX() + ", " + e.getY());
 
-        this.pointReleased.setX(e.getX());
-        this.pointReleased.setY(e.getY());
+        this.m_pointReleased.setX(e.getX());
+        this.m_pointReleased.setY(e.getY());
 
         ICommand cmd;
 
         // MouseMode
-        switch (this.appState.getActiveMouseMode()) {
+        switch (this.m_appState.getActiveMouseMode()) {
             case DRAW:
                 // MouseMode.DRAW
-                if ((this.pointPressed.getX() != this.pointReleased.getX()) || (this.pointPressed.getY() != this.pointReleased.getY()))
+                if ((this.m_pointPressed.getX() != this.m_pointReleased.getX()) || (this.m_pointPressed.getY() != this.m_pointReleased.getY()))
                 {
-                    cmd = new CmdCreateShape(this.appState, this.shapeRepo, this.pointPressed, this.pointReleased);
+                    cmd = new CmdCreateShape(this.m_appState, this.m_shapeRepo, this.m_pointPressed, this.m_pointReleased);
                     cmd.execute();
                 }
                 break;
 
             case SELECT:
                 // MouseMode.SELECT
-                cmd = new CmdSelectShape(this.appState, this.shapeRepo, this.pointPressed, this.pointReleased);
+                cmd = new CmdSelectShape(this.m_appState, this.m_shapeRepo, this.m_pointPressed, this.m_pointReleased);
                 cmd.execute();
                 break;
 
             case MOVE:
                 // MouseMode.MOVE
-                cmd = new CmdMoveShape(this.appState, this.shapeRepo, this.pointPressed, this.pointReleased);
+                cmd = new CmdMoveShape(this.m_appState, this.m_shapeRepo, this.m_pointPressed, this.m_pointReleased);
                 cmd.execute();
                 break;
         }
 
         // Reset
-        this.pointPressed.setX(0);
-        this.pointPressed.setY(0);
-        this.pointReleased.setX(0);
-        this.pointReleased.setY(0);
+        this.m_pointPressed.setX(0);
+        this.m_pointPressed.setY(0);
+        this.m_pointReleased.setX(0);
+        this.m_pointReleased.setY(0);
     }
 
     @Override

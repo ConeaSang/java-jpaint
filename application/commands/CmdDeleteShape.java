@@ -8,13 +8,13 @@ import java.util.List;
 
 public class CmdDeleteShape implements ICommand, IUndoable {
     // Data
-    private ShapeRepository shapeRepo;
-    private List<IShape> localDeleteShapeList;
+    private final ShapeRepository m_shapeRepo;
+    private final List<IShape> m_localDeleteShapeList;
 
     // Constructors
-    public CmdDeleteShape(ShapeRepository _shapeRepo) {
-        this.shapeRepo = _shapeRepo;
-        this.localDeleteShapeList = new ArrayList<>();
+    public CmdDeleteShape(ShapeRepository shapeRepo) {
+        this.m_shapeRepo = shapeRepo;
+        this.m_localDeleteShapeList = new ArrayList<>();
     }
 
     // Methods
@@ -22,24 +22,22 @@ public class CmdDeleteShape implements ICommand, IUndoable {
     public void execute() {
         System.out.println("---> execute() CmdDeleteShape");
 
-        List<IShape> selectedList = this.shapeRepo.getSelectedShapeList();
+        List<IShape> selectedList = this.m_shapeRepo.getSelectedShapeList();
 
-        for (IShape s : selectedList) {
-            this.localDeleteShapeList.add(s);
-        }
+        this.m_localDeleteShapeList.addAll(selectedList);
 
-        this.shapeRepo.remove(localDeleteShapeList);
+        this.m_shapeRepo.remove(m_localDeleteShapeList);
 
         CommandHistory.add(this);
     }
 
     @Override
     public void undo() {
-        this.shapeRepo.add(this.localDeleteShapeList);
+        this.m_shapeRepo.add(this.m_localDeleteShapeList);
     }
 
     @Override
     public void redo() {
-        this.shapeRepo.remove(this.localDeleteShapeList);
+        this.m_shapeRepo.remove(this.m_localDeleteShapeList);
     }
 }

@@ -9,17 +9,17 @@ import java.util.List;
 
 public class CmdMoveShape implements ICommand, IUndoable {
     // Data
-    private ShapeRepository shapeRepo;
-    private int deltaX;
-    private int deltaY;
-    private List<IShape> localMoveShapeList;
+    private final ShapeRepository m_shapeRepo;
+    private final int m_deltaX;
+    private final int m_deltaY;
+    private final List<IShape> m_localMoveShapeList;
 
     // Constructors
-    public CmdMoveShape(IApplicationState _appState, ShapeRepository _shapeRepo, application.Point _pressedPoint, application.Point _releasedPoint) {
-        this.shapeRepo = _shapeRepo;
-        this.deltaX = _releasedPoint.getX() - _pressedPoint.getX();
-        this.deltaY = _releasedPoint.getY() - _pressedPoint.getY();
-        this.localMoveShapeList = new ArrayList<>();
+    public CmdMoveShape(IApplicationState appState, ShapeRepository shapeRepo, application.Point pressedPoint, application.Point releasedPoint) {
+        this.m_shapeRepo = shapeRepo;
+        this.m_deltaX = releasedPoint.getX() - pressedPoint.getX();
+        this.m_deltaY = releasedPoint.getY() - pressedPoint.getY();
+        this.m_localMoveShapeList = new ArrayList<>();
     }
 
     // Methods
@@ -27,9 +27,9 @@ public class CmdMoveShape implements ICommand, IUndoable {
     public void execute() {
         System.out.println("---> execute() CmdMoveShape");
 
-        this.shapeRepo.moveSelectedShapes(this.deltaX, this.deltaY);
+        this.m_shapeRepo.moveSelectedShapes(this.m_deltaX, this.m_deltaY);
 
-        this.setLocalMoveShapeList(shapeRepo.getSelectedShapeList());
+        this.setLocalMoveShapeList(m_shapeRepo.getSelectedShapeList());
 
         CommandHistory.add(this);
     }
@@ -37,29 +37,27 @@ public class CmdMoveShape implements ICommand, IUndoable {
     @Override
     public void undo() {
         // This loop will also update the mainShapeList in ShapeRepository
-        for (IShape s : this.localMoveShapeList) {
-            s.translateAllPoint(-this.deltaX, -this.deltaY);
+        for (IShape s : this.m_localMoveShapeList) {
+            s.translateAllPoint(-this.m_deltaX, -this.m_deltaY);
         }
 
-        this.shapeRepo.reDrawAllShapes();
+        this.m_shapeRepo.reDrawAllShapes();
     }
 
     @Override
     public void redo() {
         // This loop will also update the mainShapeList in ShapeRepository
-        for (IShape s : this.localMoveShapeList) {
-            s.translateAllPoint(this.deltaX, this.deltaY);
+        for (IShape s : this.m_localMoveShapeList) {
+            s.translateAllPoint(this.m_deltaX, this.m_deltaY);
         }
 
-        this.shapeRepo.reDrawAllShapes();
+        this.m_shapeRepo.reDrawAllShapes();
     }
 
-    public void setLocalMoveShapeList(List<IShape> _shapeList) {
-        this.localMoveShapeList.clear();
+    public void setLocalMoveShapeList(List<IShape> shapeList) {
+        this.m_localMoveShapeList.clear();
 
-        for (IShape s : _shapeList) {
-            this.localMoveShapeList.add(s);
-        }
+        this.m_localMoveShapeList.addAll(shapeList);
     }
 }
 

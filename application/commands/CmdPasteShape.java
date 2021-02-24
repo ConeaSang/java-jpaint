@@ -11,13 +11,13 @@ import java.util.List;
 
 public class CmdPasteShape implements ICommand, IUndoable {
     // Data
-    private final ShapeRepository shapeRepo;
-    private final List<IShape> localPasteShapeList;
+    private final ShapeRepository m_shapeRepo;
+    private final List<IShape> m_localPasteShapeList;
 
     // Constructors
-    public CmdPasteShape(ShapeRepository _shapeRepo) {
-        this.shapeRepo = _shapeRepo;
-        this.localPasteShapeList = new ArrayList<>();
+    public CmdPasteShape(ShapeRepository shapeRepo) {
+        this.m_shapeRepo = shapeRepo;
+        this.m_localPasteShapeList = new ArrayList<>();
     }
 
     // Methods
@@ -25,7 +25,7 @@ public class CmdPasteShape implements ICommand, IUndoable {
     public void execute() {
         System.out.println("---> execute() CmdPasteShape");
 
-        for (IShape s : this.shapeRepo.getClipboardShapeList()) {
+        for (IShape s : this.m_shapeRepo.getClipboardShapeList()) {
             ShapeInfo shapeInfo = new ShapeInfo(s.getShapeInfo());
             IShape shape;
 
@@ -37,21 +37,21 @@ public class CmdPasteShape implements ICommand, IUndoable {
                 shape = ShapeFactory.createShapeTriangle(shapeInfo);
             }
 
-            this.localPasteShapeList.add(shape);
+            this.m_localPasteShapeList.add(shape);
         }
 
-        this.shapeRepo.add(this.localPasteShapeList);
+        this.m_shapeRepo.add(this.m_localPasteShapeList);
 
         CommandHistory.add(this);
     }
 
     @Override
     public void undo() {
-        this.shapeRepo.remove(this.localPasteShapeList);
+        this.m_shapeRepo.remove(this.m_localPasteShapeList);
     }
 
     @Override
     public void redo() {
-        this.shapeRepo.add(this.localPasteShapeList);
+        this.m_shapeRepo.add(this.m_localPasteShapeList);
     }
 }
