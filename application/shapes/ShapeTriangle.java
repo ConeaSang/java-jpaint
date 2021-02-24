@@ -10,15 +10,17 @@ public class ShapeTriangle extends Shape {
 
     // Constructors
     public ShapeTriangle(ShapeInfo _shapeInfo) {
-        this.shapeInfo = new ShapeInfo();
+        //this.shapeInfo = new ShapeInfo();
 
-        this.shapeInfo.setShapeType(_shapeInfo.getShapeType());
-        this.shapeInfo.setPrimaryColor(_shapeInfo.getPrimaryColor());
-        this.shapeInfo.setSecondaryColor(_shapeInfo.getSecondaryColor());
-        this.shapeInfo.setShadingType(_shapeInfo.getShadingType());
+        //this.shapeInfo.setShapeType(_shapeInfo.getShapeType());
+        //this.shapeInfo.setPrimaryColor(_shapeInfo.getPrimaryColor());
+        //this.shapeInfo.setSecondaryColor(_shapeInfo.getSecondaryColor());
+        //this.shapeInfo.setShadingType(_shapeInfo.getShadingType());
 
-        this.shapeInfo.setPressedPoint(new Point(_shapeInfo.getPressedPoint()));
-        this.shapeInfo.setReleasedPoint(new Point(_shapeInfo.getReleasedPoint()));
+        //this.shapeInfo.setPressedPoint(new Point(_shapeInfo.getPressedPoint()));
+        //this.shapeInfo.setReleasedPoint(new Point(_shapeInfo.getReleasedPoint()));
+
+        this.shapeInfo = _shapeInfo;
 
         // Find topLeftPoint & bottomRightPoint
         this.topLeftPoint = new Point(0, 0);
