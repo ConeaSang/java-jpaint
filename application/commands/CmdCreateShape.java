@@ -10,10 +10,11 @@ import model.ShapeType;
 import model.interfaces.IApplicationState;
 import view.interfaces.PaintCanvasBase;
 
-public class CmdCreateShape implements ICommand {
+public class CmdCreateShape implements ICommand, IUndoable {
     // Data
     private ShapeInfo shapeInfo;
     private ShapeRepository shapeRepo;
+    private IShape shape;
 
     // Constructors
     public CmdCreateShape(IApplicationState _appState, ShapeRepository _shapeRepo, application.Point _pressedPoint, application.Point _releasedPoint) {
@@ -35,18 +36,26 @@ public class CmdCreateShape implements ICommand {
     public void execute() {
         System.out.println("---> execute() CmdCreateShape");
 
-        IShape shape;
-
         // Call the ShapeFactory
         if (this.shapeInfo.getShapeType() == ShapeType.ELLIPSE) {
-            shape = ShapeFactory.createShapeEllipse(this.shapeInfo);
+            this.shape = ShapeFactory.createShapeEllipse(this.shapeInfo);
         } else if (this.shapeInfo.getShapeType() == ShapeType.RECTANGLE) {
-            shape = ShapeFactory.createShapeRectangle(this.shapeInfo);
+            this.shape = ShapeFactory.createShapeRectangle(this.shapeInfo);
         } else {
-            shape = ShapeFactory.createShapeTriangle(this.shapeInfo);
+            this.shape = ShapeFactory.createShapeTriangle(this.shapeInfo);
         }
 
-        ICommand cmd = new CmdAddToRepo(this.shapeRepo, shape);
-        cmd.execute();
+        this.shapeRepo.add(this.shape);
+        CommandHistory.add(this);
+    }
+
+    @Override
+    public void undo() {
+        this.shapeRepo.remove(this.shape);
+    }
+
+    @Override
+    public void redo() {
+        this.shapeRepo.add(this.shape);
     }
 }

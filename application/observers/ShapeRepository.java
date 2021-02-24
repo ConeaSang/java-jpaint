@@ -44,6 +44,10 @@ public class ShapeRepository implements ISubject {
             this.mainShapeList.remove(_shape);
         }
 
+        if (this.selectedShapeList.contains(_shape)) {
+            this.selectedShapeList.remove(_shape);
+        }
+
         this.reDrawAllShapes();
 
         System.out.println("remove() - mainShapeList size: " + this.mainShapeList.size());
