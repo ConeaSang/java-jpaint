@@ -28,6 +28,9 @@ public class Main {
 		ShapeDrawer shapeDrawerObserver = new ShapeDrawer(paintCanvas, shapeRepo);
 		shapeRepo.registerObserver(shapeDrawerObserver);
 
+		// Set ShapeRepo for JPaintController instance
+		controller.setShapeRepo(shapeRepo);
+
 		// Setup Mouse Listeners
 		CanvasMouseListener mouseListener = new CanvasMouseListener(paintCanvas, appState, shapeRepo);
 		paintCanvas.addMouseListener(mouseListener);

@@ -27,7 +27,7 @@ public class CmdMoveShape implements ICommand, IUndoable {
     public void execute() {
         System.out.println("---> execute() CmdMoveShape");
 
-        this.shapeRepo.updateMainShapeListForMove(this.deltaX, this.deltaY);
+        this.shapeRepo.moveSelectedShapes(this.deltaX, this.deltaY);
 
         this.setLocalMoveShapeList(shapeRepo.getSelectedShapeList());
 

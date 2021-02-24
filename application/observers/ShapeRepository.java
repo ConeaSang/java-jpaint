@@ -10,6 +10,7 @@ public class ShapeRepository implements ISubject {
     // Data
     private List<IShape> mainShapeList = new ArrayList<>();
     private List<IShape> selectedShapeList = new ArrayList<>();
+    private List<IShape> clipboardShapeList = new ArrayList<>();
 
     private List<IObserver> observerList = new ArrayList<>();
 
@@ -46,6 +47,7 @@ public class ShapeRepository implements ISubject {
         this.reDrawAllShapes();
 
         System.out.println("remove() - mainShapeList size: " + this.mainShapeList.size());
+        this.printSizeOfAllList();
     }
 
     public void setMainShapeList(List<IShape> _shapeList) {
@@ -72,7 +74,7 @@ public class ShapeRepository implements ISubject {
         return this.selectedShapeList;
     }
 
-    public void updateMainShapeListForMove(int _deltaX, int _deltaY) {
+    public void moveSelectedShapes(int _deltaX, int _deltaY) {
         // This loop will also update the mainShapeList
         for (IShape s : this.selectedShapeList) {
             s.translateAllPoint(_deltaX, _deltaY);
@@ -99,6 +101,17 @@ public class ShapeRepository implements ISubject {
         System.out.println("updateForCollision() - selectedShapeList size: " + this.selectedShapeList.size());
     }
 
+    public void updateClipboardShapeListForCopy() {
+        this.clearClipboardShapeList();
+
+        for (IShape s : this.selectedShapeList) {
+            this.clipboardShapeList.add(s);
+        }
+
+        System.out.println("updateForCopy() - clipboardShapeList size: " + this.clipboardShapeList.size());
+        this.printSizeOfAllList();
+    }
+
     public void reDrawAllShapes() {
         this.notifyObservers();
     }
@@ -114,10 +127,20 @@ public class ShapeRepository implements ISubject {
         this.selectedShapeList.clear();
     }
 
+    private void clearClipboardShapeList() {
+        this.clipboardShapeList.clear();
+    }
+
     private boolean checkCollision(IShape shape, Point _topLeftCollision, Point _bottomRightCollision) {
         return shape.getTopLeftPoint().getX() < _bottomRightCollision.getX()
                 && shape.getBottomRightPoint().getX() > _topLeftCollision.getX()
                 && shape.getTopLeftPoint().getY() < _bottomRightCollision.getY()
                 && shape.getBottomRightPoint().getY() > _topLeftCollision.getY();
+    }
+
+    private void printSizeOfAllList() {
+        System.out.println("main      size: " + this.mainShapeList.size());
+        System.out.println("selected  size: " + this.selectedShapeList.size());
+        System.out.println("clipboard size: " + this.clipboardShapeList.size());
     }
 }

@@ -1,13 +1,16 @@
 package controller;
 
 import application.commands.*;
+import application.observers.ShapeRepository;
 import model.interfaces.IApplicationState;
 import view.EventName;
 import view.interfaces.IUiModule;
+import view.interfaces.PaintCanvasBase;
 
 public class JPaintController implements IJPaintController {
     private final IUiModule uiModule;
     private final IApplicationState applicationState;
+    private ShapeRepository shapeRepo;
 
     public JPaintController(IUiModule uiModule, IApplicationState applicationState) {
         this.uiModule = uiModule;
@@ -17,6 +20,11 @@ public class JPaintController implements IJPaintController {
     @Override
     public void setup() {
         setupEvents();
+    }
+
+    @Override
+    public void setShapeRepo(ShapeRepository _shapeRepo) {
+        this.shapeRepo = _shapeRepo;
     }
 
     private void setupEvents() {
@@ -38,8 +46,9 @@ public class JPaintController implements IJPaintController {
         uiModule.addEvent(EventName.UNDO, () -> new CmdUndo().execute());
         uiModule.addEvent(EventName.REDO, () -> new CmdRedo().execute());
 
+        uiModule.addEvent(EventName.COPY, () -> new CmdCopyShape(this.shapeRepo).execute());
 
-
+        //--------------------------------------------------
         // Add event here
 
         //uiModule.addEvent(EventName.DELETE, () -> new UndoCommand().run());
