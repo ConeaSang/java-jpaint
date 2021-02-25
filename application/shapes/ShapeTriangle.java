@@ -69,6 +69,56 @@ public class ShapeTriangle extends Shape {
     }
 
     @Override
+    public void drawOutline(Graphics2D g2D) {
+        int[] xArray = new int[3];
+        int[] yArray = new int[3];
+
+        xArray[0] = this.shapeInfo.getPressedPoint().getX();
+        xArray[1] = this.shapeInfo.getReleasedPoint().getX();
+        xArray[2] = this.shapeInfo.getPressedPoint().getX();
+
+        yArray[0] = this.shapeInfo.getPressedPoint().getY();
+        yArray[1] = this.shapeInfo.getReleasedPoint().getY();
+        yArray[2] = this.shapeInfo.getReleasedPoint().getY();
+
+        if (xArray[0] < xArray[1]) {
+            if (yArray[0] < yArray[2]) {
+                xArray[0] -= 5;
+                xArray[1] += 5;
+                xArray[2] -= 5;
+                yArray[0] -= 5;
+                yArray[1] += 5;
+                yArray[2] += 5;
+            } else {
+                xArray[0] -= 5;
+                xArray[1] += 5;
+                xArray[2] -= 5;
+                yArray[0] += 5;
+                yArray[1] -= 5;
+                yArray[2] -= 5;
+            }
+        } else {
+            if (yArray[0] < yArray[2]) {
+                xArray[0] += 5;
+                xArray[1] -= 5;
+                xArray[2] += 5;
+                yArray[0] -= 5;
+                yArray[1] += 5;
+                yArray[2] += 5;
+            } else {
+                xArray[0] += 5;
+                xArray[1] -= 5;
+                xArray[2] += 5;
+                yArray[0] += 5;
+                yArray[1] -= 5;
+                yArray[2] -= 5;
+            }
+        }
+
+        g2D.drawPolygon(xArray, yArray, 3);
+    }
+
+    @Override
     public ShapeInfo getShapeInfo() {
         return this.shapeInfo;
     }

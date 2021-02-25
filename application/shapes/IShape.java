@@ -6,6 +6,7 @@ import java.awt.*;
 
 public interface IShape {
     void draw(Graphics2D g2D);
+    void drawOutline(Graphics2D g2D);
 
     ShapeInfo getShapeInfo();
     Point getTopLeftPoint();

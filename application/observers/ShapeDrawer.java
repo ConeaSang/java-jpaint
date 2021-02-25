@@ -1,6 +1,7 @@
 package application.observers;
 
 import application.shapes.IShape;
+import application.shapes.ShapeOutlineProxy;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.Graphics2D;
@@ -31,6 +32,12 @@ public class ShapeDrawer implements IObserver {
 
         for (IShape s : this.m_shapeRepo.getMainShapeList()) {
             s.draw(this.m_paintCanvas.getGraphics2D());
+        }
+
+        // Draw shape outlines
+        for (IShape t : this.m_shapeRepo.getSelectedShapeList()) {
+            IShape shapeProxy = new ShapeOutlineProxy(t);
+            shapeProxy.draw(this.m_paintCanvas.getGraphics2D());
         }
     }
 }

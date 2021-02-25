@@ -3,8 +3,7 @@ package application.shapes;
 import application.Point;
 import model.ShapeShadingType;
 
-import java.awt.BasicStroke;
-import java.awt.Graphics2D;
+import java.awt.*;
 
 public class ShapeRectangle extends Shape {
     // Data
@@ -59,6 +58,14 @@ public class ShapeRectangle extends Shape {
             g2D.setColor(this.shapeInfo.getSecondaryColor());
             g2D.drawRect(this.topLeftPoint.getX(), this.topLeftPoint.getY(), width, height);
         }
+    }
+
+    @Override
+    public void drawOutline(Graphics2D g2D) {
+        int width = Math.abs(this.shapeInfo.getReleasedPoint().getX() - this.shapeInfo.getPressedPoint().getX());
+        int height = Math.abs(this.shapeInfo.getReleasedPoint().getY() - this.shapeInfo.getPressedPoint().getY());
+
+        g2D.drawRect(this.topLeftPoint.getX() - 5, this.topLeftPoint.getY() - 5, width + 10, height + 10);
     }
 
     @Override

@@ -127,6 +127,8 @@ public class ShapeRepository implements ISubject {
             }
         }
 
+        reDrawAllShapes();
+
         System.out.println("updateForCollision() - selectedShapeList size: " + this.m_selectedShapeList.size());
     }
 
