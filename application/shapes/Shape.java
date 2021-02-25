@@ -4,8 +4,8 @@ import application.Point;
 
 public abstract class Shape implements IShape {
     // Data
-    protected ShapeInfo shapeInfo;
+    protected ShapeInfo m_shapeInfo;
 
-    protected Point topLeftPoint;
-    protected Point bottomRightPoint;
+    protected Point m_topLeftPoint;
+    protected Point m_bottomRightPoint;
 }

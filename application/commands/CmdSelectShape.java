@@ -2,7 +2,10 @@ package application.commands;
 
 import application.Point;
 import application.observers.ShapeRepository;
+import application.shapes.IShape;
 import model.interfaces.IApplicationState;
+
+import java.util.List;
 
 public class CmdSelectShape implements ICommand {
     // Data
@@ -39,6 +42,22 @@ public class CmdSelectShape implements ICommand {
     public void execute() {
         System.out.println("---> execute() CmdSelectShape");
 
-        this.m_shapeRepo.updateSelectedShapeListForCollision(this.m_topLeftCollision, this.m_bottomRightCollision);
+        List<IShape> selectedList = this.m_shapeRepo.getSelectedShapeList();
+
+        selectedList.clear();
+
+        for (IShape s : this.m_shapeRepo.getMainShapeList()) {
+            if (this.m_shapeRepo.checkCollision(s, this.m_topLeftCollision, this.m_bottomRightCollision)) {
+                System.out.println("Collided");
+                selectedList.add(s);
+            } else {
+                System.out.println("Not collided");
+            }
+        }
+
+        this.m_shapeRepo.reDrawAllShapes();
+
+        System.out.print("____________   - ");
+        this.m_shapeRepo.printSizeOfAllList();
     }
 }

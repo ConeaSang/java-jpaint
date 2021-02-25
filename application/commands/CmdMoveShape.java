@@ -27,11 +27,20 @@ public class CmdMoveShape implements ICommand, IUndoable {
     public void execute() {
         System.out.println("---> execute() CmdMoveShape");
 
-        this.m_shapeRepo.moveSelectedShapes(this.m_deltaX, this.m_deltaY);
+        //this.m_shapeRepo.moveSelectedShapes(this.m_deltaX, this.m_deltaY);
+
+        for (IShape s : this.m_shapeRepo.getSelectedShapeList()) {
+            s.translateAllPoint(this.m_deltaX, this.m_deltaY);
+        }
+
+        this.m_shapeRepo.reDrawAllShapes();
 
         this.setLocalMoveShapeList(m_shapeRepo.getSelectedShapeList());
 
         CommandHistory.add(this);
+
+        System.out.print("____________   - ");
+        this.m_shapeRepo.printSizeOfAllList();
     }
 
     @Override

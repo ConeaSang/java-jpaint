@@ -46,7 +46,7 @@ public class CmdCopyShape implements ICommand {
 
         this.m_shapeRepo.setClipboardShapeList(tmpList);
 
-        System.out.print("____________ - ");
+        System.out.print("____________   - ");
         this.m_shapeRepo.printSizeOfAllList();
     }
 }

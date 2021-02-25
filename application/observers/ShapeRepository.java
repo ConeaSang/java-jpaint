@@ -35,7 +35,7 @@ public class ShapeRepository implements ISubject {
 
         this.reDrawAllShapes();
 
-        System.out.print("add(shape) - ");
+        System.out.print("add(shape)     - ");
         this.printSizeOfAllList();
     }
 
@@ -44,7 +44,7 @@ public class ShapeRepository implements ISubject {
 
         this.reDrawAllShapes();
 
-        System.out.print("add(list) - ");
+        System.out.print("add(list)      - ");
         this.printSizeOfAllList();
     }
 
@@ -55,7 +55,7 @@ public class ShapeRepository implements ISubject {
 
         this.reDrawAllShapes();
 
-        System.out.print("remove(shape) - ");
+        System.out.print("remove(shape)  - ");
         this.printSizeOfAllList();
     }
 
@@ -69,7 +69,7 @@ public class ShapeRepository implements ISubject {
 
         this.reDrawAllShapes();
 
-        System.out.print("remove(list) - ");
+        System.out.print("remove(list)   - ");
         this.printSizeOfAllList();
     }
 
@@ -103,35 +103,6 @@ public class ShapeRepository implements ISubject {
         return this.m_clipboardShapeList;
     }
 
-    public void moveSelectedShapes(int deltaX, int deltaY) {
-        // This loop will also update the mainShapeList
-        for (IShape s : this.m_selectedShapeList) {
-            s.translateAllPoint(deltaX, deltaY);
-        }
-
-        reDrawAllShapes();
-
-        System.out.println("updateForMove() - mainShapeList size: " + this.m_mainShapeList.size());
-        System.out.println("updateForMove() - selectedShapeList size: " + this.m_selectedShapeList.size());
-    }
-
-    public void updateSelectedShapeListForCollision(Point topLeftCollision, Point bottomRightCollision) {
-        this.m_selectedShapeList.clear();
-
-        for (IShape s : this.m_mainShapeList) {
-            if (this.checkCollision(s, topLeftCollision, bottomRightCollision)) {
-                System.out.println("Collided");
-                this.m_selectedShapeList.add(s);
-            } else {
-                System.out.println("Not collided");
-            }
-        }
-
-        reDrawAllShapes();
-
-        System.out.println("updateForCollision() - selectedShapeList size: " + this.m_selectedShapeList.size());
-    }
-
     public void reDrawAllShapes() {
         this.notifyObservers();
     }
@@ -140,17 +111,17 @@ public class ShapeRepository implements ISubject {
         System.out.println("size: (" + this.m_mainShapeList.size() + ", " + this.m_selectedShapeList.size() + ", " + this.m_clipboardShapeList.size() + ")");
     }
 
+    public boolean checkCollision(IShape shape, Point topLeftCollision, Point bottomRightCollision) {
+        return shape.getTopLeftPoint().getX() < bottomRightCollision.getX()
+                && shape.getBottomRightPoint().getX() > topLeftCollision.getX()
+                && shape.getTopLeftPoint().getY() < bottomRightCollision.getY()
+                && shape.getBottomRightPoint().getY() > topLeftCollision.getY();
+    }
+
     // private Methods
     private void notifyObservers() {
         for (IObserver observer : this.m_observerList) {
             observer.update();
         }
-    }
-
-    private boolean checkCollision(IShape shape, Point topLeftCollision, Point bottomRightCollision) {
-        return shape.getTopLeftPoint().getX() < bottomRightCollision.getX()
-                && shape.getBottomRightPoint().getX() > topLeftCollision.getX()
-                && shape.getTopLeftPoint().getY() < bottomRightCollision.getY()
-                && shape.getBottomRightPoint().getY() > topLeftCollision.getY();
     }
 }
