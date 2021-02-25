@@ -65,7 +65,7 @@ public class ShapeEllipse extends Shape {
         int width = Math.abs(this.shapeInfo.getReleasedPoint().getX() - this.shapeInfo.getPressedPoint().getX());
         int height = Math.abs(this.shapeInfo.getReleasedPoint().getY() - this.shapeInfo.getPressedPoint().getY());
 
-        g2D.drawOval(this.topLeftPoint.getX() - 5, this.topLeftPoint.getY() - 5, width + 10, height + 10);
+        g2D.drawOval(this.topLeftPoint.getX() - 6, this.topLeftPoint.getY() - 6, width + 12, height + 12);
     }
 
     @Override

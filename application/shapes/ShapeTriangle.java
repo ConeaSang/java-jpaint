@@ -70,50 +70,46 @@ public class ShapeTriangle extends Shape {
 
     @Override
     public void drawOutline(Graphics2D g2D) {
+        int width = Math.abs(this.shapeInfo.getReleasedPoint().getX() - this.shapeInfo.getPressedPoint().getX());
+        int height = Math.abs(this.shapeInfo.getReleasedPoint().getY() - this.shapeInfo.getPressedPoint().getY());
+
+        float ratio = ((float)width / (float)height);
+        int adjustX = (int)(6 * ratio * 1.414f);
+        int adjustY = (int)(6 / ratio * 1.414f);
+
+        //System.out.println("adjustX: " + adjustX + ",     adjustY: " + adjustY);
+
         int[] xArray = new int[3];
         int[] yArray = new int[3];
 
-        xArray[0] = this.shapeInfo.getPressedPoint().getX();
-        xArray[1] = this.shapeInfo.getReleasedPoint().getX();
-        xArray[2] = this.shapeInfo.getPressedPoint().getX();
+        Point p0 = new Point(0, 0);
+        Point p1 = new Point(0, 0);
 
-        yArray[0] = this.shapeInfo.getPressedPoint().getY();
-        yArray[1] = this.shapeInfo.getReleasedPoint().getY();
-        yArray[2] = this.shapeInfo.getReleasedPoint().getY();
-
-        if (xArray[0] < xArray[1]) {
-            if (yArray[0] < yArray[2]) {
-                xArray[0] -= 5;
-                xArray[1] += 5;
-                xArray[2] -= 5;
-                yArray[0] -= 5;
-                yArray[1] += 5;
-                yArray[2] += 5;
+        if (this.shapeInfo.getPressedPoint().getX() < this.shapeInfo.getReleasedPoint().getX()) {
+            if (this.shapeInfo.getPressedPoint().getY() < this.shapeInfo.getReleasedPoint().getY()) {
+                p0.setXY(this.shapeInfo.getPressedPoint().getX() - 6, this.shapeInfo.getPressedPoint().getY() - 6 - adjustY);
+                p1.setXY(this.shapeInfo.getReleasedPoint().getX() + 6 + adjustX, this.shapeInfo.getReleasedPoint().getY() + 6);
             } else {
-                xArray[0] -= 5;
-                xArray[1] += 5;
-                xArray[2] -= 5;
-                yArray[0] += 5;
-                yArray[1] -= 5;
-                yArray[2] -= 5;
+                p0.setXY(this.shapeInfo.getPressedPoint().getX() - 6, this.shapeInfo.getPressedPoint().getY() + 6 + adjustY);
+                p1.setXY(this.shapeInfo.getReleasedPoint().getX() + 6 + adjustX, this.shapeInfo.getReleasedPoint().getY() - 6);
             }
         } else {
-            if (yArray[0] < yArray[2]) {
-                xArray[0] += 5;
-                xArray[1] -= 5;
-                xArray[2] += 5;
-                yArray[0] -= 5;
-                yArray[1] += 5;
-                yArray[2] += 5;
+            if (this.shapeInfo.getPressedPoint().getY() < this.shapeInfo.getReleasedPoint().getY()) {
+                p0.setXY(this.shapeInfo.getPressedPoint().getX() + 6, this.shapeInfo.getPressedPoint().getY() - 6 - adjustY);
+                p1.setXY(this.shapeInfo.getReleasedPoint().getX() - 6 - adjustX, this.shapeInfo.getReleasedPoint().getY() + 6);
             } else {
-                xArray[0] += 5;
-                xArray[1] -= 5;
-                xArray[2] += 5;
-                yArray[0] += 5;
-                yArray[1] -= 5;
-                yArray[2] -= 5;
+                p0.setXY(this.shapeInfo.getPressedPoint().getX() + 6, this.shapeInfo.getPressedPoint().getY() + 6 + adjustY);
+                p1.setXY(this.shapeInfo.getReleasedPoint().getX() - 6 - adjustX, this.shapeInfo.getReleasedPoint().getY() - 6);
             }
         }
+
+        xArray[0] = p0.getX();
+        xArray[1] = p1.getX();
+        xArray[2] = p0.getX();
+
+        yArray[0] = p0.getY();
+        yArray[1] = p1.getY();
+        yArray[2] = p1.getY();
 
         g2D.drawPolygon(xArray, yArray, 3);
     }
