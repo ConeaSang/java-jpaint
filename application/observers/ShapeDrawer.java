@@ -26,9 +26,12 @@ public class ShapeDrawer implements IObserver {
 
     private void drawAll() {
         //shapeList.get(0).getPaintCanvas().repaint();
+        //this.m_paintCanvas.repaint(0, 0, this.m_paintCanvas.getWidth(), this.m_paintCanvas.getHeight());
         Graphics2D g2D = this.m_paintCanvas.getGraphics2D();
+
         g2D.setColor(Color.WHITE);
         g2D.fillRect(0, 0, this.m_paintCanvas.getWidth(), this.m_paintCanvas.getHeight());
+        //g2D.clearRect(0, 0, m_paintCanvas.getWidth(), m_paintCanvas.getHeight());
 
         for (IShape s : this.m_shapeRepo.getMainShapeList()) {
             s.draw(this.m_paintCanvas.getGraphics2D());

@@ -74,9 +74,14 @@ public class ShapeTriangle extends Shape {
         int height = Math.abs(this.m_shapeInfo.getReleasedPoint().getY() - this.m_shapeInfo.getPressedPoint().getY());
 
         float ratio = ((float)width / (float)height);
+        if (ratio > 16.0f) {
+            ratio = 16.0f;
+        } else if (ratio < 0.0625f) {
+            ratio = 0.0625f;
+        }
+        //System.out.println("ratio: " + ratio);
         int adjustX = (int)(6 * ratio * 1.414f);
         int adjustY = (int)(6 / ratio * 1.414f);
-
         //System.out.println("adjustX: " + adjustX + ",     adjustY: " + adjustY);
 
         int[] xArray = new int[3];
