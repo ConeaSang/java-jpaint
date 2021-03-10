@@ -1,4 +1,4 @@
-package application.color;
+package application.singleton;
 
 import model.ShapeColor;
 

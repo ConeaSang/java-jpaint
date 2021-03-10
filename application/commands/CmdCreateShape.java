@@ -1,7 +1,7 @@
 package application.commands;
 
 import application.Point;
-import application.color.ColorTranslation;
+import application.singleton.ColorTranslation;
 import application.observers.ShapeRepository;
 import application.shapes.IShape;
 import application.shapes.ShapeFactory;
