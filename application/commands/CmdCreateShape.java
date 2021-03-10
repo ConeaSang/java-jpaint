@@ -23,8 +23,8 @@ public class CmdCreateShape implements ICommand, IUndoable {
 
         // Set values
         this.m_shapeInfo.setShapeType(appState.getActiveShapeType())
-                      .setPrimaryColor(ColorTranslation.getColor(appState.getActivePrimaryColor()))
-                      .setSecondaryColor(ColorTranslation.getColor(appState.getActiveSecondaryColor()))
+                      .setPrimaryColor(ColorTranslation.getInstance().getColor(appState.getActivePrimaryColor()))
+                      .setSecondaryColor(ColorTranslation.getInstance().getColor(appState.getActiveSecondaryColor()))
                       .setShadingType(appState.getActiveShapeShadingType())
                       .setPressedPoint(new Point(pressedPoint))
                       .setReleasedPoint(new Point(releasedPoint));

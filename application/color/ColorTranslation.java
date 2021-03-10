@@ -5,19 +5,33 @@ import model.ShapeColor;
 import java.awt.*;
 import java.util.EnumMap;
 
+// Singleton
 public class ColorTranslation {
 	// Data
+	private static final ColorTranslation m_instance = new ColorTranslation();
 	private static EnumMap<ShapeColor, java.awt.Color> m_mapColor;
 
 	static {
 		ColorTranslation.m_mapColor = linkTheColor();
 	}
 
-	// Constructors
-	private  ColorTranslation() {
+	// Constructors ("private" because this class is singleton)
+	private ColorTranslation() {
 	}
 
-	private static EnumMap linkTheColor() {
+	// Methods
+	// getInstance() method
+	public static ColorTranslation getInstance() {
+		return m_instance;
+	}
+
+	// Public methods
+	public Color getColor(ShapeColor _shapeColor) {
+		return m_mapColor.get(_shapeColor);
+	}
+
+	// Private methods
+	private static EnumMap<ShapeColor, java.awt.Color> linkTheColor() {
 		EnumMap<ShapeColor, java.awt.Color> map = new EnumMap<>(ShapeColor.class);
 
 		map.put(ShapeColor.BLACK, Color.BLACK);
@@ -35,10 +49,5 @@ public class ColorTranslation {
 		map.put(ShapeColor.YELLOW, Color.YELLOW);
 
 		return map;
-	}
-
-	// Methods
-	public static Color getColor(ShapeColor _shapeColor) {
-		return m_mapColor.get(_shapeColor);
 	}
 }
