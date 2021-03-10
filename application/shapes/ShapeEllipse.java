@@ -4,6 +4,7 @@ import application.Point;
 import model.ShapeShadingType;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShapeEllipse extends Shape {
@@ -104,5 +105,12 @@ public class ShapeEllipse extends Shape {
     @Override
     public List<IShape> getChildren() {
         return null;
+    }
+
+    @Override
+    public List<IShape> ungroup() {
+        List<IShape> tmpShapeList = new ArrayList<>();
+        tmpShapeList.add(this);
+        return tmpShapeList;
     }
 }

@@ -18,4 +18,6 @@ public interface IShape {
     void translateAllPoint(int deltaX, int deltaY);
 
     List<IShape> getChildren();
+
+    List<IShape> ungroup();
 }

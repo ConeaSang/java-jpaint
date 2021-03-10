@@ -2,9 +2,6 @@ package application.commands;
 
 import application.observers.ShapeRepository;
 import application.shapes.IShape;
-import application.shapes.ShapeFactory;
-import application.shapes.ShapeInfo;
-import model.ShapeType;
 
 import java.util.ArrayList;
 import java.util.List;

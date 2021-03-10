@@ -4,6 +4,7 @@ import application.Point;
 import model.ShapeShadingType;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShapeTriangle extends Shape {
@@ -155,5 +156,12 @@ public class ShapeTriangle extends Shape {
     @Override
     public List<IShape> getChildren() {
         return null;
+    }
+
+    @Override
+    public List<IShape> ungroup() {
+        List<IShape> tmpShapeList = new ArrayList<>();
+        tmpShapeList.add(this);
+        return tmpShapeList;
     }
 }

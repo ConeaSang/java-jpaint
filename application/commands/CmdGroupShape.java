@@ -24,16 +24,19 @@ public class CmdGroupShape implements ICommand, IUndoable {
 
         // Check edge case
         if (this.m_shapeRepo.getSelectedShapeList().size() == 0) {
-            System.out.println("Cannot group: No shape selected");
+            System.out.println("Cannot group!: No shape selected");
             return;
         }
 
-        // Create ShapeGroup instance
-        List<IShape> tmpGroupList = new ArrayList<>();
-
-        for (IShape s : this.m_shapeRepo.getSelectedShapeList()) {
-            tmpGroupList.add(s);
+        if (this.m_shapeRepo.getSelectedShapeList().size() == 1) {
+            System.out.println("Cannot group!: Only 1 shape selected");
+            return;
         }
+
+        // Create ShapeGroup instance by calling ShapeFactory
+        //List<IShape> tmpGroupList = new ArrayList<>();
+        //tmpGroupList.addAll(this.m_shapeRepo.getSelectedShapeList());
+        List<IShape> tmpGroupList = new ArrayList<>(this.m_shapeRepo.getSelectedShapeList());
 
         this.m_shapeGroup = ShapeFactory.createShapeGroup(tmpGroupList);
 
@@ -53,10 +56,15 @@ public class CmdGroupShape implements ICommand, IUndoable {
 
     @Override
     public void undo() {
+        System.out.println("---> undo() CmdGroupShape");
+
         // Update selectedShapeList and mainShapeList in the shapeRepo
         List<IShape> selectedList = this.m_shapeRepo.getSelectedShapeList();
-        selectedList.remove(this.m_shapeGroup);
-        selectedList.addAll(this.m_shapeGroup.getChildren());
+
+        //if (selectedList.contains(this.m_shapeGroup)) {
+            selectedList.remove(this.m_shapeGroup);
+            selectedList.addAll(this.m_shapeGroup.getChildren());
+       // }
 
         this.m_shapeRepo.remove(this.m_shapeGroup);
         this.m_shapeRepo.add(this.m_shapeGroup.getChildren());
@@ -64,10 +72,15 @@ public class CmdGroupShape implements ICommand, IUndoable {
 
     @Override
     public void redo() {
+        System.out.println("---> redo() CmdGroupShape");
+
         // Update selectedShapeList and mainShapeList in the shapeRepo
         List<IShape> selectedList = this.m_shapeRepo.getSelectedShapeList();
-        selectedList.removeAll(this.m_shapeGroup.getChildren());
-        selectedList.add(this.m_shapeGroup);
+
+        //if (selectedList.containsAll(this.m_shapeGroup.getChildren())) {
+            selectedList.removeAll(this.m_shapeGroup.getChildren());
+            selectedList.add(this.m_shapeGroup);
+        //}
 
         this.m_shapeRepo.remove(this.m_shapeGroup.getChildren());
         this.m_shapeRepo.add(this.m_shapeGroup);

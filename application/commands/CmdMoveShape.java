@@ -12,14 +12,14 @@ public class CmdMoveShape implements ICommand, IUndoable {
     private final ShapeRepository m_shapeRepo;
     private final int m_deltaX;
     private final int m_deltaY;
-    private final List<IShape> m_localMoveShapeList;
+    private final List<IShape> m_localAfterMoveShapeList;
 
     // Constructors
     public CmdMoveShape(IApplicationState appState, ShapeRepository shapeRepo, application.Point pressedPoint, application.Point releasedPoint) {
         this.m_shapeRepo = shapeRepo;
         this.m_deltaX = releasedPoint.getX() - pressedPoint.getX();
         this.m_deltaY = releasedPoint.getY() - pressedPoint.getY();
-        this.m_localMoveShapeList = new ArrayList<>();
+        this.m_localAfterMoveShapeList = new ArrayList<>();
     }
 
     // Methods
@@ -45,8 +45,10 @@ public class CmdMoveShape implements ICommand, IUndoable {
 
     @Override
     public void undo() {
+        System.out.println("---> undo() CmdMoveShape");
+
         // This loop will also update the mainShapeList in ShapeRepository
-        for (IShape s : this.m_localMoveShapeList) {
+        for (IShape s : this.m_localAfterMoveShapeList) {
             s.translateAllPoint(-this.m_deltaX, -this.m_deltaY);
         }
 
@@ -55,8 +57,10 @@ public class CmdMoveShape implements ICommand, IUndoable {
 
     @Override
     public void redo() {
+        System.out.println("---> redo() CmdMoveShape");
+
         // This loop will also update the mainShapeList in ShapeRepository
-        for (IShape s : this.m_localMoveShapeList) {
+        for (IShape s : this.m_localAfterMoveShapeList) {
             s.translateAllPoint(this.m_deltaX, this.m_deltaY);
         }
 
@@ -64,9 +68,9 @@ public class CmdMoveShape implements ICommand, IUndoable {
     }
 
     public void setLocalMoveShapeList(List<IShape> shapeList) {
-        this.m_localMoveShapeList.clear();
+        this.m_localAfterMoveShapeList.clear();
 
-        this.m_localMoveShapeList.addAll(shapeList);
+        this.m_localAfterMoveShapeList.addAll(shapeList);
     }
 }
 

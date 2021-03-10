@@ -67,6 +67,15 @@ public class ShapeOutlineProxy implements IShape {
 
     @Override
     public List<IShape> getChildren() {
+        // This method should not be called
+        System.out.println("This method should not be called.");
+        return null;
+    }
+
+    @Override
+    public List<IShape> ungroup() {
+        // This method should not be called
+        System.out.println("This method should not be called.");
         return null;
     }
 }

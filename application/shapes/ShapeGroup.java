@@ -6,12 +6,13 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// Composite Pattern (Composite)
 public class ShapeGroup implements IShape {
     // Data
     private final List<IShape> m_children;
 
-    private Point m_topLeftPoint;
-    private Point m_bottomRightPoint;
+    private final Point m_topLeftPoint;
+    private final Point m_bottomRightPoint;
 
     // Constructors
     public ShapeGroup(List<IShape> shapeList) {
@@ -93,6 +94,11 @@ public class ShapeGroup implements IShape {
 
     @Override
     public List<IShape> getChildren() {
+        return this.m_children;
+    }
+
+    @Override
+    public List<IShape> ungroup() {
         return this.m_children;
     }
 }
