@@ -28,16 +28,18 @@ public class CmdCopyShape implements ICommand {
         List<IShape> tmpList = new ArrayList<>();
 
         for (IShape s : this.m_shapeRepo.getSelectedShapeList()) {
-            ShapeInfo shapeInfo = new ShapeInfo(s.getShapeInfo());
-            IShape shape;
+            //ShapeInfo shapeInfo = new ShapeInfo(s.getShapeInfo());
+            //IShape shape;
 
-            if (shapeInfo.getShapeType() == ShapeType.ELLIPSE) {
-                shape = ShapeFactory.createShapeEllipse(shapeInfo);
-            } else if (shapeInfo.getShapeType() == ShapeType.RECTANGLE) {
-                shape = ShapeFactory.createShapeRectangle(shapeInfo);
-            } else {
-                shape = ShapeFactory.createShapeTriangle(shapeInfo);
-            }
+            //if (shapeInfo.getShapeType() == ShapeType.ELLIPSE) {
+            //    shape = ShapeFactory.createShapeEllipse(shapeInfo);
+            //} else if (shapeInfo.getShapeType() == ShapeType.RECTANGLE) {
+            //    shape = ShapeFactory.createShapeRectangle(shapeInfo);
+            //} else {
+            //    shape = ShapeFactory.createShapeTriangle(shapeInfo);
+            //}
+
+            IShape shape = s.deepCopyShape();
 
             shape.translateAllPoint(this.m_offset, this.m_offset);
 

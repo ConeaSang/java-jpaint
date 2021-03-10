@@ -4,6 +4,7 @@ import application.Point;
 import model.ShapeShadingType;
 
 import java.awt.*;
+import java.util.List;
 
 public class ShapeRectangle extends Shape {
     // Data
@@ -62,15 +63,24 @@ public class ShapeRectangle extends Shape {
 
     @Override
     public void drawOutline(Graphics2D g2D) {
-        int width = Math.abs(this.m_shapeInfo.getReleasedPoint().getX() - this.m_shapeInfo.getPressedPoint().getX());
-        int height = Math.abs(this.m_shapeInfo.getReleasedPoint().getY() - this.m_shapeInfo.getPressedPoint().getY());
+        //int width = Math.abs(this.m_shapeInfo.getReleasedPoint().getX() - this.m_shapeInfo.getPressedPoint().getX());
+        //int height = Math.abs(this.m_shapeInfo.getReleasedPoint().getY() - this.m_shapeInfo.getPressedPoint().getY());
+        int width = Math.abs(this.m_bottomRightPoint.getX() - this.m_topLeftPoint.getX());
+        int height = Math.abs(this.m_bottomRightPoint.getY() - this.m_topLeftPoint.getY());
 
         g2D.drawRect(this.m_topLeftPoint.getX() - 6, this.m_topLeftPoint.getY() - 6, width + 12, height + 12);
     }
 
+    //@Override
+    //public ShapeInfo getShapeInfo() {
+    //    return this.m_shapeInfo;
+    //}
+
     @Override
-    public ShapeInfo getShapeInfo() {
-        return this.m_shapeInfo;
+    public IShape deepCopyShape() {
+        ShapeInfo newShapeInfo = new ShapeInfo(this.m_shapeInfo);
+
+        return ShapeFactory.createShapeRectangle(newShapeInfo);
     }
 
     @Override
@@ -89,5 +99,10 @@ public class ShapeRectangle extends Shape {
         this.m_shapeInfo.getReleasedPoint().setXY(this.m_shapeInfo.getReleasedPoint().getX() + deltaX, this.m_shapeInfo.getReleasedPoint().getY() + deltaY);
         this.m_topLeftPoint.setXY(this.m_topLeftPoint.getX() + deltaX, this.m_topLeftPoint.getY() + deltaY);
         this.m_bottomRightPoint.setXY(this.m_bottomRightPoint.getX() + deltaX, this.m_bottomRightPoint.getY() + deltaY);
+    }
+
+    @Override
+    public List<IShape> getChildren() {
+        return null;
     }
 }

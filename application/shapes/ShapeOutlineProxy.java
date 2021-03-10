@@ -3,6 +3,7 @@ package application.shapes;
 import application.Point;
 
 import java.awt.*;
+import java.util.List;
 
 public class ShapeOutlineProxy implements IShape {
     // Data
@@ -29,11 +30,18 @@ public class ShapeOutlineProxy implements IShape {
         System.out.println("This method should not be called.");
     }
 
+    //@Override
+    //public ShapeInfo getShapeInfo() {
+    //    // This method should not be called
+    //    System.out.println("This method should not be called.");
+    //    return this.m_shape.getShapeInfo();
+    //}
+
     @Override
-    public ShapeInfo getShapeInfo() {
+    public IShape deepCopyShape() {
         // This method should not be called
         System.out.println("This method should not be called.");
-        return this.m_shape.getShapeInfo();
+        return null;
     }
 
     @Override
@@ -55,5 +63,10 @@ public class ShapeOutlineProxy implements IShape {
         // This method should not be called
         System.out.println("This method should not be called.");
         this.m_shape.translateAllPoint(deltaX, deltaY);
+    }
+
+    @Override
+    public List<IShape> getChildren() {
+        return null;
     }
 }

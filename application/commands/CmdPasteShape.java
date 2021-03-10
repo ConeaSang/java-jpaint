@@ -26,16 +26,18 @@ public class CmdPasteShape implements ICommand, IUndoable {
         System.out.println("---> execute() CmdPasteShape");
 
         for (IShape s : this.m_shapeRepo.getClipboardShapeList()) {
-            ShapeInfo shapeInfo = new ShapeInfo(s.getShapeInfo());
-            IShape shape;
+            //ShapeInfo shapeInfo = new ShapeInfo(s.getShapeInfo());
+            //IShape shape;
 
-            if (shapeInfo.getShapeType() == ShapeType.ELLIPSE) {
-                shape = ShapeFactory.createShapeEllipse(shapeInfo);
-            } else if (shapeInfo.getShapeType() == ShapeType.RECTANGLE) {
-                shape = ShapeFactory.createShapeRectangle(shapeInfo);
-            } else {
-                shape = ShapeFactory.createShapeTriangle(shapeInfo);
-            }
+            //if (shapeInfo.getShapeType() == ShapeType.ELLIPSE) {
+            //    shape = ShapeFactory.createShapeEllipse(shapeInfo);
+            //} else if (shapeInfo.getShapeType() == ShapeType.RECTANGLE) {
+            //    shape = ShapeFactory.createShapeRectangle(shapeInfo);
+            //} else {
+            //    shape = ShapeFactory.createShapeTriangle(shapeInfo);
+            //}
+
+            IShape shape = s.deepCopyShape();
 
             this.m_localPasteShapeList.add(shape);
         }

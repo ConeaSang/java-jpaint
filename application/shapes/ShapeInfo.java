@@ -17,9 +17,11 @@ public class ShapeInfo {
     private Point m_releasedPoint;
 
     // Constructors
+    // Default constructor
     public ShapeInfo() {
     }
 
+    // Special constructor for hard copy
     public ShapeInfo(ShapeInfo shapeInfo) {
         this.m_shapeType = shapeInfo.getShapeType();
         this.m_primaryColor = shapeInfo.getPrimaryColor();

@@ -4,6 +4,7 @@ import application.Point;
 import model.ShapeShadingType;
 
 import java.awt.*;
+import java.util.List;
 
 public class ShapeTriangle extends Shape {
     // Data
@@ -70,8 +71,10 @@ public class ShapeTriangle extends Shape {
 
     @Override
     public void drawOutline(Graphics2D g2D) {
-        int width = Math.abs(this.m_shapeInfo.getReleasedPoint().getX() - this.m_shapeInfo.getPressedPoint().getX());
-        int height = Math.abs(this.m_shapeInfo.getReleasedPoint().getY() - this.m_shapeInfo.getPressedPoint().getY());
+        //int width = Math.abs(this.m_shapeInfo.getReleasedPoint().getX() - this.m_shapeInfo.getPressedPoint().getX());
+        //int height = Math.abs(this.m_shapeInfo.getReleasedPoint().getY() - this.m_shapeInfo.getPressedPoint().getY());
+        int width = Math.abs(this.m_bottomRightPoint.getX() - this.m_topLeftPoint.getX());
+        int height = Math.abs(this.m_bottomRightPoint.getY() - this.m_topLeftPoint.getY());
 
         float ratio = ((float)width / (float)height);
         if (ratio > 16.0f) {
@@ -119,9 +122,16 @@ public class ShapeTriangle extends Shape {
         g2D.drawPolygon(xArray, yArray, 3);
     }
 
+    //@Override
+    //public ShapeInfo getShapeInfo() {
+    //    return this.m_shapeInfo;
+    //}
+
     @Override
-    public ShapeInfo getShapeInfo() {
-        return this.m_shapeInfo;
+    public IShape deepCopyShape() {
+        ShapeInfo newShapeInfo = new ShapeInfo(this.m_shapeInfo);
+
+        return ShapeFactory.createShapeTriangle(newShapeInfo);
     }
 
     @Override
@@ -140,5 +150,10 @@ public class ShapeTriangle extends Shape {
         this.m_shapeInfo.getReleasedPoint().setXY(this.m_shapeInfo.getReleasedPoint().getX() + deltaX, this.m_shapeInfo.getReleasedPoint().getY() + deltaY);
         this.m_topLeftPoint.setXY(this.m_topLeftPoint.getX() + deltaX, this.m_topLeftPoint.getY() + deltaY);
         this.m_bottomRightPoint.setXY(this.m_bottomRightPoint.getX() + deltaX, this.m_bottomRightPoint.getY() + deltaY);
+    }
+
+    @Override
+    public List<IShape> getChildren() {
+        return null;
     }
 }
