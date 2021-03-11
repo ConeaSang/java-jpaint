@@ -3,6 +3,8 @@ package application.shapes;
 import java.util.List;
 
 public class ShapeFactory {
+    // Data
+
     // Constructors
     private ShapeFactory() {
     }
