@@ -46,14 +46,14 @@ public class CmdPasteShape implements ICommand, IUndoable {
 
     @Override
     public void undo() {
-        System.out.println("---> undo() CmdPasteShape");
+        System.out.println("----------------> undo() CmdPasteShape");
 
         this.m_shapeRepo.remove(this.m_localAfterPasteShapeList);
     }
 
     @Override
     public void redo() {
-        System.out.println("---> redo() CmdPasteShape");
+        System.out.println("----------------> redo() CmdPasteShape");
         this.m_shapeRepo.add(this.m_localAfterPasteShapeList);
     }
 }

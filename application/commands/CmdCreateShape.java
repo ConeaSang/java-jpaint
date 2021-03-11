@@ -51,13 +51,13 @@ public class CmdCreateShape implements ICommand, IUndoable {
 
     @Override
     public void undo() {
-        System.out.println("---> undo() CmdCreateShape");
+        System.out.println("----------------> undo() CmdCreateShape");
         this.m_shapeRepo.remove(this.m_shape);
     }
 
     @Override
     public void redo() {
-        System.out.println("---> redo() CmdCreateShape");
+        System.out.println("----------------> redo() CmdCreateShape");
         this.m_shapeRepo.add(this.m_shape);
     }
 }

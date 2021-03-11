@@ -52,13 +52,13 @@ public class CmdUngroupShape implements ICommand, IUndoable {
 
         CommandHistory.add(this);
 
-        System.out.print("____________   - ");
-        this.m_shapeRepo.printSizeOfAllList();
+        //System.out.print("____________   - ");
+        //this.m_shapeRepo.printSizeOfAllList();
     }
 
     @Override
     public void undo() {
-        System.out.println("---> undo() CmdUngroupShape");
+        System.out.println("----------------> undo() CmdUngroupShape");
 
         // Update selectedShapeList and mainShapeList in the shapeRepo
         List<IShape> selectedList = this.m_shapeRepo.getSelectedShapeList();
@@ -71,7 +71,7 @@ public class CmdUngroupShape implements ICommand, IUndoable {
 
     @Override
     public void redo() {
-        System.out.println("---> redo() CmdUngroupShape");
+        System.out.println("----------------> redo() CmdUngroupShape");
 
         // Update selectedShapeList and mainShapeList in the shapeRepo
         List<IShape> selectedList = this.m_shapeRepo.getSelectedShapeList();

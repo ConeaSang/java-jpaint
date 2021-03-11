@@ -45,7 +45,7 @@ public class CmdMoveShape implements ICommand, IUndoable {
 
     @Override
     public void undo() {
-        System.out.println("---> undo() CmdMoveShape");
+        System.out.println("----------------> undo() CmdMoveShape");
 
         // This loop will also update the mainShapeList in ShapeRepository
         for (IShape s : this.m_localAfterMoveShapeList) {
@@ -57,7 +57,7 @@ public class CmdMoveShape implements ICommand, IUndoable {
 
     @Override
     public void redo() {
-        System.out.println("---> redo() CmdMoveShape");
+        System.out.println("----------------> redo() CmdMoveShape");
 
         // This loop will also update the mainShapeList in ShapeRepository
         for (IShape s : this.m_localAfterMoveShapeList) {

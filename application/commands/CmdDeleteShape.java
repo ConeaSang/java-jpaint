@@ -33,13 +33,13 @@ public class CmdDeleteShape implements ICommand, IUndoable {
 
     @Override
     public void undo() {
-        System.out.println("---> undo() CmdDeleteShape");
+        System.out.println("----------------> undo() CmdDeleteShape");
         this.m_shapeRepo.add(this.m_localBeforeDeleteShapeList);
     }
 
     @Override
     public void redo() {
-        System.out.println("---> redo() CmdDeleteShape");
+        System.out.println("----------------> redo() CmdDeleteShape");
         this.m_shapeRepo.remove(this.m_localBeforeDeleteShapeList);
     }
 }
