@@ -42,12 +42,12 @@ public class CmdUngroupShape implements ICommand, IUndoable {
             return;
         }
 
-        // Update selectedShapeList and mainShapeList in the shapeRepo
+        // Update mainShapeList and selectedShapeList in the shapeRepo
+        this.m_shapeRepo.remove(this.m_localBeforeUngroupShapeList);
+
         List<IShape> selectedList = this.m_shapeRepo.getSelectedShapeList();
-        selectedList.removeAll(this.m_localBeforeUngroupShapeList);
         selectedList.addAll(this.m_localAfterUngroupShapeList);
 
-        this.m_shapeRepo.remove(this.m_localBeforeUngroupShapeList);
         this.m_shapeRepo.add(this.m_localAfterUngroupShapeList);
 
         CommandHistory.add(this);
@@ -60,12 +60,12 @@ public class CmdUngroupShape implements ICommand, IUndoable {
     public void undo() {
         System.out.println("----------------> undo() CmdUngroupShape");
 
-        // Update selectedShapeList and mainShapeList in the shapeRepo
+        // Update mainShapeList and selectedShapeList in the shapeRepo
+        this.m_shapeRepo.remove(this.m_localAfterUngroupShapeList);
+
         List<IShape> selectedList = this.m_shapeRepo.getSelectedShapeList();
-        selectedList.removeAll(this.m_localAfterUngroupShapeList);
         selectedList.addAll((this.m_localBeforeUngroupShapeList));
 
-        this.m_shapeRepo.remove(this.m_localAfterUngroupShapeList);
         this.m_shapeRepo.add(this.m_localBeforeUngroupShapeList);
     }
 
@@ -73,12 +73,12 @@ public class CmdUngroupShape implements ICommand, IUndoable {
     public void redo() {
         System.out.println("----------------> redo() CmdUngroupShape");
 
-        // Update selectedShapeList and mainShapeList in the shapeRepo
+        // Update mainShapeList and selectedShapeList in the shapeRepo
+        this.m_shapeRepo.remove(this.m_localBeforeUngroupShapeList);
+
         List<IShape> selectedList = this.m_shapeRepo.getSelectedShapeList();
-        selectedList.removeAll((this.m_localBeforeUngroupShapeList));
         selectedList.addAll(this.m_localAfterUngroupShapeList);
 
-        this.m_shapeRepo.remove(this.m_localBeforeUngroupShapeList);
         this.m_shapeRepo.add(this.m_localAfterUngroupShapeList);
     }
 }

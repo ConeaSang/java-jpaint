@@ -40,12 +40,12 @@ public class CmdGroupShape implements ICommand, IUndoable {
 
         this.m_shapeGroup = ShapeFactory.createShapeGroup(tmpGroupList);
 
-        // Update selectedShapeList and mainShapeList in the shapeRepo
+        // Update mainShapeList and selectedShapeList in the shapeRepo
+        this.m_shapeRepo.remove(this.m_shapeGroup.getChildren());
+
         List<IShape> selectedList = this.m_shapeRepo.getSelectedShapeList();
-        selectedList.removeAll(this.m_shapeGroup.getChildren());
         selectedList.add(this.m_shapeGroup);
 
-        this.m_shapeRepo.remove(this.m_shapeGroup.getChildren());
         this.m_shapeRepo.add(this.m_shapeGroup);
 
         CommandHistory.add(this);
@@ -58,15 +58,15 @@ public class CmdGroupShape implements ICommand, IUndoable {
     public void undo() {
         System.out.println("----------------> undo() CmdGroupShape");
 
-        // Update selectedShapeList and mainShapeList in the shapeRepo
+        // Update mainShapeList and selectedShapeList in the shapeRepo
+        this.m_shapeRepo.remove(this.m_shapeGroup);
+
         List<IShape> selectedList = this.m_shapeRepo.getSelectedShapeList();
 
         //if (selectedList.contains(this.m_shapeGroup)) {
-            selectedList.remove(this.m_shapeGroup);
             selectedList.addAll(this.m_shapeGroup.getChildren());
        // }
 
-        this.m_shapeRepo.remove(this.m_shapeGroup);
         this.m_shapeRepo.add(this.m_shapeGroup.getChildren());
     }
 
@@ -74,15 +74,15 @@ public class CmdGroupShape implements ICommand, IUndoable {
     public void redo() {
         System.out.println("----------------> redo() CmdGroupShape");
 
-        // Update selectedShapeList and mainShapeList in the shapeRepo
+        // Update mainShapeList and selectedShapeList in the shapeRepo
+        this.m_shapeRepo.remove(this.m_shapeGroup.getChildren());
+
         List<IShape> selectedList = this.m_shapeRepo.getSelectedShapeList();
 
         //if (selectedList.containsAll(this.m_shapeGroup.getChildren())) {
-            selectedList.removeAll(this.m_shapeGroup.getChildren());
             selectedList.add(this.m_shapeGroup);
         //}
 
-        this.m_shapeRepo.remove(this.m_shapeGroup.getChildren());
         this.m_shapeRepo.add(this.m_shapeGroup);
     }
 }
