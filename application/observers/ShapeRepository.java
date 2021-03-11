@@ -30,6 +30,13 @@ public class ShapeRepository implements ISubject {
         this.m_observerList.remove(observer);
     }
 
+    @Override
+    public void notifyObservers() {
+        for (IObserver observer : this.m_observerList) {
+            observer.update();
+        }
+    }
+
     public void add(IShape shape) {
         this.m_mainShapeList.add(shape);
 
@@ -116,12 +123,5 @@ public class ShapeRepository implements ISubject {
                 && shape.getBottomRightPoint().getX() > topLeftCollision.getX()
                 && shape.getTopLeftPoint().getY() < bottomRightCollision.getY()
                 && shape.getBottomRightPoint().getY() > topLeftCollision.getY();
-    }
-
-    // private Methods
-    private void notifyObservers() {
-        for (IObserver observer : this.m_observerList) {
-            observer.update();
-        }
     }
 }
