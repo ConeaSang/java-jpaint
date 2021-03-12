@@ -102,10 +102,10 @@ public class ShapeEllipse extends Shape {
         this.m_bottomRightPoint.setXY(this.m_bottomRightPoint.getX() + deltaX, this.m_bottomRightPoint.getY() + deltaY);
     }
 
-    @Override
-    public List<IShape> getChildren() {
-        return null;
-    }
+    //@Override
+    //public List<IShape> getChildren() {
+    //    return null;
+    //}
 
     @Override
     public List<IShape> ungroup() {

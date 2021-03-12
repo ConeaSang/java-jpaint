@@ -65,12 +65,12 @@ public class ShapeOutlineProxy implements IShape {
         this.m_shape.translateAllPoint(deltaX, deltaY);
     }
 
-    @Override
-    public List<IShape> getChildren() {
-        // This method should not be called
-        System.out.println("This method should not be called.");
-        return null;
-    }
+    //@Override
+    //public List<IShape> getChildren() {
+    //    // This method should not be called
+    //    System.out.println("This method should not be called.");
+    //    return null;
+    //}
 
     @Override
     public List<IShape> ungroup() {

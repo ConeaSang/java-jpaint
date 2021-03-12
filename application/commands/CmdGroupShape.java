@@ -2,7 +2,9 @@ package application.commands;
 
 import application.observers.ShapeRepository;
 import application.shapes.IShape;
+import application.shapes.IShapeGroup;
 import application.shapes.ShapeFactory;
+import application.shapes.ShapeGroupFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
 public class CmdGroupShape implements ICommand, IUndoable {
     // Data
     private final ShapeRepository m_shapeRepo;
-    private IShape m_shapeGroup;
+    private IShapeGroup m_shapeGroup;
 
     // Constructors
     public CmdGroupShape(ShapeRepository shapeRepo) {
@@ -38,7 +40,7 @@ public class CmdGroupShape implements ICommand, IUndoable {
         //tmpGroupList.addAll(this.m_shapeRepo.getSelectedShapeList());
         List<IShape> tmpGroupList = new ArrayList<>(this.m_shapeRepo.getSelectedShapeList());
 
-        this.m_shapeGroup = ShapeFactory.createShapeGroup(tmpGroupList);
+        this.m_shapeGroup = ShapeGroupFactory.createShapeGroup(tmpGroupList);
 
         // Update mainShapeList and selectedShapeList in the shapeRepo
         this.m_shapeRepo.remove(this.m_shapeGroup.getChildren());

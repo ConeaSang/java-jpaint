@@ -1,7 +1,5 @@
 package application.shapes;
 
-import java.util.List;
-
 public class ShapeFactory {
     // Data
 
@@ -20,9 +18,5 @@ public class ShapeFactory {
 
     public static IShape createShapeTriangle(ShapeInfo shapeInfo) {
         return new ShapeTriangle(shapeInfo);
-    }
-
-    public static IShape createShapeGroup(List<IShape> shapeList) {
-        return new ShapeGroup(shapeList);
     }
 }

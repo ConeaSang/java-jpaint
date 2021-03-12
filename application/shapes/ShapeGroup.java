@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Composite Pattern (Composite)
-public class ShapeGroup implements IShape {
+public class ShapeGroup implements IShapeGroup {
     // Data
     private final List<IShape> m_children;
 
@@ -69,7 +69,7 @@ public class ShapeGroup implements IShape {
             childrenCopy.add(shape);
         }
 
-        return ShapeFactory.createShapeGroup(childrenCopy);
+        return ShapeGroupFactory.createShapeGroup(childrenCopy);
     }
 
     @Override
