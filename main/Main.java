@@ -34,6 +34,10 @@ public class Main {
 		// Setup Mouse Listeners
 		CanvasMouseListener mouseListener = new CanvasMouseListener(paintCanvas, appState, shapeRepo);
 		paintCanvas.addMouseListener(mouseListener);
+		
+		//--------------------------------------------------
+		// Testing GitHub
+		// - After changed GitHub username
 
 		//--------------------------------------------------
 		// Testing
