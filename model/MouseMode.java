@@ -4,4 +4,5 @@ public enum MouseMode {
     DRAW,
     SELECT,
     MOVE
+
 }
